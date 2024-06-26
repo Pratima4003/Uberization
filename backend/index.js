@@ -2,13 +2,15 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const connectToMongo = require("./db");
 const dotenv = require("dotenv");
+const cors = require("cors");
 const authenticate = require("../backend/controllers/authenticate");
 dotenv.config();
 
 const app = express();
 connectToMongo();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
 
@@ -21,8 +23,8 @@ app.use("/api/newuser", require("./routes/newUser"));
 app.use("/api/newform", require("./routes/newForm"));
 
 // login route
-app.get("/login", authenticate, (req, res) => {
-  if (req.isAdmin === true) {
+app.post("/login", authenticate, (req, res) => {
+  if (req.isAdmin) {
     res.json("Admin");
   } else if (!req.isAdmin && req.isNormal) {
     res.json("Normal");

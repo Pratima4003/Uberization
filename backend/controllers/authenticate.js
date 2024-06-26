@@ -11,7 +11,7 @@ const authenticate = async (req, res, next) => {
 
   const { name, pass } = credentials;
 
-  if (name === "admin" && pass === "123") {
+  if (name == "admin" && pass == "123") {
     req.isAdmin = true;
     return next();
   }
@@ -24,6 +24,7 @@ const authenticate = async (req, res, next) => {
       req.isNormal = true;
       next();
     } else {
+      console.log("error here")
       res.status(401).json({ message: "Access denied" });
     }
   } catch (err) {

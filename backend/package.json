@@ -11,6 +11,7 @@
   "description": "",
   "dependencies": {
     "basic-auth": "^2.0.1",
+    "cors": "^2.8.5",
     "express": "^4.19.2",
     "express-validator": "^7.1.0",
     "mongoose": "^8.4.3"

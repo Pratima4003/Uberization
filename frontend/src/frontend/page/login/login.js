@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -6,17 +7,29 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle login logic here (e.g., validation, API calls)
-    console.log("Username:", username);
-    console.log("Password:", password);
-    
-    // Implement your login logic here and navigate on successful login
-    if (username === "admin" && password === "password") {
-      navigate("/adminDashboard");
-    } else {
-      alert("Invalid credentials, please try again.");
+    console.log(typeof username, typeof password);
+    try {
+      const response = await fetch('http://localhost:3000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, password })
+      });
+      // console.log(response);
+      if (response.json === "Admin") {
+        navigate("/adminDashboard");
+      } else if (response.json === "Normal") {
+        navigate("/dashboard");
+      } else {
+        console.log("hellow");
+        alert("Invalid User");
+      }
+    } catch (error) {
+      // console.error("Login Error:", error);
+      alert("Login failed. Please check your credentials and try again.");
     }
   };
 
