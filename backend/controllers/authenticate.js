@@ -1,9 +1,8 @@
 // authenticate.js
 const basicAuth = require("basic-auth");
-// database is the file from models
 const User = require("../models/User");
 
-const authenticate = (req, res, next) => {
+const authenticate = async (req, res, next) => {
   const credentials = basicAuth(req);
 
   if (!credentials) {
@@ -11,15 +10,15 @@ const authenticate = (req, res, next) => {
   }
 
   const { name, pass } = credentials;
+
   if (name === "admin" && pass === "123") {
     req.isAdmin = true;
-    next();
+    return next();
   }
-  User.findOne({ username: name, password: pass }, (err, user) => {
-    if (err) {
-      return res.status(500).json({ message: "Internal server error" });
-    }
 
+  try {
+    const user = await User.findOne({ name: name, password: pass });
+    
     if (user) {
       req.isAdmin = false;
       req.isNormal = true;
@@ -27,7 +26,9 @@ const authenticate = (req, res, next) => {
     } else {
       res.status(401).json({ message: "Access denied" });
     }
-  });
+  } catch (err) {
+    res.status(500).json({ message: "Internal server error" });
+  }
 };
 
 module.exports = authenticate;
