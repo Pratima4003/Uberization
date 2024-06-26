@@ -2,6 +2,7 @@
   "name": "newapp",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:3000/",
   "dependencies": {
     "@auth0/auth0-react": "^2.2.4",
     "@testing-library/jest-dom": "^5.17.0",
@@ -24,8 +25,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "proxy": "http-proxy-middleware http://localhost:5000"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [

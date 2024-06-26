@@ -25,11 +25,12 @@ app.use("/api/newform", require("./routes/newForm"));
 // login route
 app.post("/login", authenticate, (req, res) => {
   if (req.isAdmin) {
-    res.json("Admin");
+    res.status(200).json({message:"Admin"});
   } else if (!req.isAdmin && req.isNormal) {
-    res.json("Normal");
+    res.status(201).json({message: "Normal"});
+    // res.send("Normal");
   } else {
-    res.status(403).json({ message: "Invalid User" });
+    res.status(403).send({ message: "Invalid User" });
   }
 });
 

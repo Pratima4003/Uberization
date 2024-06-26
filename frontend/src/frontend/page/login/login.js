@@ -18,10 +18,10 @@ const Login = () => {
         },
         body: JSON.stringify({ username, password })
       });
-      // console.log(response);
-      if (response.json === "Admin") {
+      console.log(response.status);
+      if (response.status === 200) {
         navigate("/adminDashboard");
-      } else if (response.json === "Normal") {
+      } else if (response.status === 201) {
         navigate("/dashboard");
       } else {
         console.log("hellow");
