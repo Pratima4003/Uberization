@@ -10,6 +10,7 @@ import VehicleDetails from "./page/admin/vehicletypes/VehicleDetails";
 import DriverDetails from "./page/admin/drvierdetails/DriverDetails";
 import RequestApproval from "./page/admin/approverequests/RequestsApproval";
 import PendingRequests from "./page/admin/pendingrequests/PendingRequests";
+import TrackVehicle from "./page/admin/trackvehicle/TrackVehicle";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route exact path="/driverdetails" element={<DriverDetails />} />
         <Route exact path="/requestapproval" element={<RequestApproval />} />
         <Route exact path="/pendingrequest" element={<PendingRequests />} />
+        <Route exact path="/track" element={<TrackVehicle />} />
       </Routes>
     </>
   );
