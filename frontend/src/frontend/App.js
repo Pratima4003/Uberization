@@ -11,6 +11,7 @@ import DriverDetails from "./page/admin/drvierdetails/DriverDetails";
 import RequestApproval from "./page/admin/approverequests/RequestsApproval";
 import PendingRequests from "./page/admin/pendingrequests/PendingRequests";
 import TrackVehicle from "./page/admin/trackvehicle/TrackVehicle";
+import TrackLive from "./page/admin/trackvehicle/TrackLive";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route exact path="/requestapproval" element={<RequestApproval />} />
         <Route exact path="/pendingrequest" element={<PendingRequests />} />
         <Route exact path="/track" element={<TrackVehicle />} />
+        <Route exact path="/map" element={<TrackLive />} />
       </Routes>
     </>
   );

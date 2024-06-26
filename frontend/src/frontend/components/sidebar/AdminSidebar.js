@@ -12,6 +12,7 @@ const AdminSidebar = () => {
         <a href="/requestapproval" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white">Request Approval</a>
         <a href="/pendingrequest" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white">Pending Requests</a>
         <a href="/track" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white">Track Vehicle</a>
+        <a href="/map" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white">Track Live</a>
         <a href="#" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-red-700 hover:text-white">Logout</a>
       </nav>
     </div>
