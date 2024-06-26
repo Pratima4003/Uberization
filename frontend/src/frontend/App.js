@@ -1,24 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import Landing from "./page/landing/landing";
+import Login from "./page/login/login";
+import Dashboard from "./page/dashboard/dashboard";
+import RequestForm from "./page/user/request/requestform";
+import Request from "./page/user/request/request";
+import AdminDashboard from "./page/admin/dashboard/AdminDashboard";
+import VehicleDetails from "./page/admin/vehicletypes/VehicleDetails";
+import DriverDetails from "./page/admin/drvierdetails/DriverDetails";
+import RequestApproval from "./page/admin/approverequests/RequestsApproval";
+import PendingRequests from "./page/admin/pendingrequests/PendingRequests";
 
-const App = () => {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    fetch('/api/data')
-      .then(response => response.json())
-      .then(data => setData(data));
-  }, []);
-
+function App() {
   return (
-    <div>
-      <h1>Hello World!</h1>
-      <ul>
-        {data.map(item => (
-          <li key={item.id}>{item.name}</li>
-        ))}
-      </ul>
-    </div>
+    <>
+      <Routes>
+        <Route exact path="/" element={<Landing />} />
+        <Route exact path="/login" element={<Login />} />
+        <Route exact path="/dashboard" element={<Dashboard />} />
+        <Route exact path="/requestform" element={<RequestForm />} />
+        <Route exact path="/request" element={<Request />} />
+        <Route exact path="/adminDashboard" element={<AdminDashboard />} />
+        <Route exact path="/vehicledetails" element={<VehicleDetails />} />
+        <Route exact path="/driverdetails" element={<DriverDetails />} />
+        <Route exact path="/requestapproval" element={<RequestApproval />} />
+        <Route exact path="/pendingrequest" element={<PendingRequests />} />
+      </Routes>
+    </>
   );
-};
+}
 
 export default App;

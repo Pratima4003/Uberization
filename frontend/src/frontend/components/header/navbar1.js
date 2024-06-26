@@ -1,56 +1,21 @@
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-export default function Navbar1({ isLoggedIn }) {
-  const reference = useRef(isLoggedIn);
+export default function Navbar1({ isLoggedIn: initialLoginState }) {
+  const [isLoggedIn, setIsLoggedIn] = useState(initialLoginState);
   const navigate = useNavigate();
 
   const handleLogin = () => {
     // Implement login logic, navigate to login page
     navigate("/login");
-    reference.current = false; // Update reference.current directly
+    setIsLoggedIn(true);
   };
 
   const handleLogout = () => {
     // Implement logout logic, navigate to home
     navigate("/");
-    reference.current = true; // Update reference.current directly
+    setIsLoggedIn(false);
   };
-
-  let navContent;
-  if (isLoggedIn) {
-    // Render logged-in state with user profile and logout button
-    navContent = (
-      <>
-        <Link
-          to="/dashboard"
-          className="hover:bg-gray-50 focus:ring-2 focus:ring-gray-100 rounded-lg"
-        >
-          <img
-            src="https://static.vecteezy.com/system/resources/previews/019/879/186/non_2x/user-icon-on-transparent-background-free-png.png"
-            className="mr-3 h-12"
-            alt="Logo"
-          />
-        </Link>
-        <button
-          className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
-          onClick={handleLogout}
-        >
-          Logout
-        </button>
-      </>
-    );
-  } else {
-    // Render login button
-    navContent = (
-      <button
-        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
-        onClick={handleLogin}
-      >
-        Login
-      </button>
-    );
-  }
 
   return (
     <header className="shadow sticky z-50 top-0">
@@ -70,7 +35,33 @@ export default function Navbar1({ isLoggedIn }) {
             >
               Home
             </Link>
-            {navContent}
+            {isLoggedIn ? (
+              <>
+                <Link
+                  to="/dashboard"
+                  className="hover:bg-gray-50 focus:ring-2 focus:ring-gray-100 rounded-lg"
+                >
+                  <img
+                    src="https://static.vecteezy.com/system/resources/previews/019/879/186/non_2x/user-icon-on-transparent-background-free-png.png"
+                    className="mr-3 h-12"
+                    alt="User Icon"
+                  />
+                </Link>
+                <button
+                  className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <button
+                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
+                onClick={handleLogin}
+              >
+                Login
+              </button>
+            )}
           </div>
         </div>
       </nav>

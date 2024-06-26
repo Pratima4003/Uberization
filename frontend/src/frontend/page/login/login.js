@@ -1,22 +1,23 @@
-// src/Login.js
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle login logic here (e.g., validation, API calls)
     console.log("Username:", username);
     console.log("Password:", password);
-  };
-
-  const history = useNavigate();
-  const submited = () => {
-    const isLoggedIn = false;
-    history("/dashboard");
+    
+    // Implement your login logic here and navigate on successful login
+    if (username === "admin" && password === "password") {
+      navigate("/adminDashboard");
+    } else {
+      alert("Invalid credentials, please try again.");
+    }
   };
 
   return (
@@ -104,7 +105,6 @@ const Login = () => {
               <button
                 type="submit"
                 className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                onClick={submited}
               >
                 Sign in
               </button>
