@@ -21,18 +21,21 @@ app.get(port, (req, res) => {
 
 // definition of routes
 const loginRouter = require("./routes/login");
+const newUserRouter = require("./routes/newUser")
 const formRouter = require("./routes/newForm");
 const findUserRouter = require("./routes/findUser");
-
-
+const driverRouter = require("./routes/newDriver");
+const vehicleRouter = require("./routes/newVehicle");
+const requestApprovalRouter = require("./routes/requestApproval");
 
 // routes
 app.use(loginRouter);
+app.use(newUserRouter);
 app.use(formRouter);
 app.use(findUserRouter);
-// app.use("/api/newuser", require("./routes/newUser"));
-
-
+app.use(driverRouter);
+app.use(vehicleRouter);
+app.use(requestApprovalRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

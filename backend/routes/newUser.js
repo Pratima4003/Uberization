@@ -3,10 +3,10 @@
 const express = require("express");
 const { body, validationResult } = require("express-validator");
 const User = require("../models/User");
-const router = express.Router();
+const newUserRouter = express.Router();
 
-router.get(
-  "/",
+newUserRouter.get(
+  "/newuser",
   [
     body("name", "Enter a valid name").isLength({ min: 3 }),
     body("email", "Enter a valid email").isEmail(),
@@ -29,4 +29,4 @@ router.get(
   }
 );
 
-module.exports = router;
+module.exports = newUserRouter;
