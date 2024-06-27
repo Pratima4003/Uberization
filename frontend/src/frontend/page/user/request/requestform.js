@@ -1,23 +1,29 @@
 import React, { useState } from "react";
+import Modal from "react-modal";
 import Sidebar from "../../../components/sidebar/sidebar";
 import Navbar1 from "../../../components/header/navbar1";
+
+// initialize the modal app
+Modal.setAppElement('#root');
 
 const RequestForm = () => {
   const [formData, setFormData] = useState({
     name: "",
-    psNumber: "",
-    phoneNumber: "",
+    psno: "",
+    phno: "",
     dropLocation: "",
-    destinationType: "instation",
-    fromDate: "",
-    toDate: "",
-    pickupTime: "",
-    dropTime: "",
-    pickupLocation: "",
-    halt: "",
+    pickLocation: "",
+    // destinationType: "instation",
+    // fromDate: "",
+    // toDate: "",
+    // pickupTime: "",
+    // dropTime: "",
+    // halt: "",
   });
 
   const [showAdditionalFields, setShowAdditionalFields] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,53 +34,60 @@ const RequestForm = () => {
         ...formData,
         [name]: value,
       });
-    } else {
-      // If additional fields are shown, handle swap and autofill logic
-      if (name === "pickupLocation") {
-        // Update main pickupLocation and autofill additionalField2 (Drop Location)
-        setFormData({
-          ...formData,
-          pickupLocation: value,
-          drop: value,
-        });
-      } else if (name === "destinationName") {
-        // Update main destinationName and autofill additionalField1 (Pickup Location)
-        setFormData({
-          ...formData,
-          dropLocation: value,
-          pickup: value,
-        });
-      } else {
-        // For other fields, update normally
-        setFormData({
-          ...formData,
-          [name]: value,
-        });
-      }
-    }
+    } 
+    // else {
+    //   // If additional fields are shown, handle swap and autofill logic
+    //   if (name === "pickLocation") {
+    //     // Update main pickLocation and autofill additionalField2 (Drop Location)
+    //     setFormData({
+    //       ...formData,
+    //       pickLocation: value,
+    //       drop: value,
+    //     });
+    //   } else if (name === "destinationName") {
+    //     // Update main destinationName and autofill additionalField1 (Pickup Location)
+    //     setFormData({
+    //       ...formData,
+    //       dropLocation: value,
+    //       pickup: value,
+    //     });
+    //   } else {
+    //     // For other fields, update normally
+    //     setFormData({
+    //       ...formData,
+    //       [name]: value,
+    //     });
+    //   }
+    // }
   };
 
-  const handleCheckboxChange = (e) => {
-    setShowAdditionalFields(e.target.checked);
-  };
+  // const handleCheckboxChange = (e) => {
+  //   setShowAdditionalFields(e.target.checked);
+  // };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData); // For demonstration, log form data to console
-    // Reset form after submission (if needed)
-    // setFormData({
-    //   name: '',
-    //   psNumber: '',
-    //   phoneNumber: '',
-    //   destinationName: '',
-    //   destinationType: 'instation',
-    //   fromDate: '',
-    //   toDate: '',
-    //   pickupTime: '',
-    //   pickupLocation: '',
-    // });
-    // Reset checkbox state
-    setShowAdditionalFields(false);
+
+    const jsonData = JSON.stringify(formData);
+    try {
+      const response = await fetch('http://localhost:3000/newform', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: jsonData
+      });
+      if (response.status === 200) {
+        setModalMessage("Request Sent Successfully");
+      } else {
+        setModalMessage("Request Not Sent. Please Refill Form with valid inputs");
+      }
+      setModalIsOpen(true);
+    } catch (error) {
+      setModalMessage("Request Failed. Please check your Data and try again.");
+      setModalIsOpen(true);
+    }
+    // setShowAdditionalFields(false);
   };
 
   return (
@@ -84,7 +97,7 @@ const RequestForm = () => {
       <div className="flex bg-gray-200">
         {/* Sidebar */}
         <Sidebar />
-        <div className="max-w-md mx-auto bg-white p-6 rounded-md shadow-md">
+        <div className="max-w-md h-screen mx-auto bg-white p-6 rounded-md shadow-md">
           <h2 className="text-4xl font-semibold text-center mb-6 font-sans">
             Request Form
           </h2>
@@ -109,16 +122,16 @@ const RequestForm = () => {
             <div className="grid grid-cols-2 gap-4">
               <div className="mb-4">
                 <label
-                  htmlFor="psNumber"
+                  htmlFor="psno"
                   className="block text-sm font-medium text-gray-700"
                 >
                   PS Number
                 </label>
                 <input
                   type="text"
-                  id="psNumber"
-                  name="psNumber"
-                  value={formData.psNumber}
+                  id="psno"
+                  name="psno"
+                  value={formData.psno}
                   onChange={handleChange}
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring-blue-500"
                   required
@@ -126,16 +139,16 @@ const RequestForm = () => {
               </div>
               <div className="mb-4">
                 <label
-                  htmlFor="phoneNumber"
+                  htmlFor="phno"
                   className="block text-sm font-medium text-gray-700"
                 >
                   Phone Number
                 </label>
                 <input
                   type="tel"
-                  id="phoneNumber"
-                  name="phoneNumber"
-                  value={formData.phoneNumber}
+                  id="phno"
+                  name="phno"
+                  value={formData.phno}
                   onChange={handleChange}
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring-blue-500"
                   required
@@ -143,7 +156,7 @@ const RequestForm = () => {
               </div>
             </div>
 
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <label
                 htmlFor="destinationType"
                 className="block text-sm font-medium text-gray-700"
@@ -161,21 +174,21 @@ const RequestForm = () => {
                 <option value="instation">InStation</option>
                 <option value="outstation">OutStation</option>
               </select>
-            </div>
+            </div> */}
 
             <div className="grid grid-cols-2 gap-4">
               <div className="mb-4">
                 <label
-                  htmlFor="pickupLocation"
+                  htmlFor="pickLocation"
                   className="block text-sm font-medium text-gray-700"
                 >
                   Pickup Location
                 </label>
                 <input
                   type="text"
-                  id="pickupLocation"
-                  name="pickupLocation"
-                  value={formData.pickupLocation}
+                  id="pickLocation"
+                  name="pickLocation"
+                  value={formData.pickLocation}
                   onChange={handleChange}
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring-blue-500"
                   required
@@ -210,12 +223,14 @@ const RequestForm = () => {
                   type="date"
                   id="fromDate"
                   name="fromDate"
+                  disabled="disabled"
                   value={formData.fromDate}
                   onChange={handleChange}
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring-blue-500"
                   required
                 />
               </div>
+
               <div className="mb-4">
                 <label
                   htmlFor="toDate"
@@ -227,12 +242,14 @@ const RequestForm = () => {
                   type="date"
                   id="toDate"
                   name="toDate"
+                  disabled="disabled"
                   value={formData.toDate}
                   onChange={handleChange}
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring-blue-500"
                   required
                 />
               </div>
+
               <div className="mb-4">
                 <label
                   htmlFor="pickupTime"
@@ -244,12 +261,14 @@ const RequestForm = () => {
                   type="time"
                   id="pickupTime"
                   name="pickupTime"
+                  disabled="disabled"
                   value={formData.pickupTime}
                   onChange={handleChange}
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring-blue-500"
                   required
                 />
               </div>
+
               <div className="mb-4">
                 <label
                   htmlFor="pickupTime"
@@ -269,7 +288,7 @@ const RequestForm = () => {
                 />
               </div>
             </div>
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <label htmlFor="additionalFields" className="flex items-center">
                 <input
                   type="checkbox"
@@ -283,8 +302,9 @@ const RequestForm = () => {
                   Return
                 </span>
               </label>
-            </div>
-            {showAdditionalFields && (
+            </div> */}
+
+            {/* {showAdditionalFields && (
               <div className="grid grid-cols-1 gap-4">
                 <div className="mb-4">
                   <label
@@ -329,18 +349,18 @@ const RequestForm = () => {
                     type="text"
                     id="drop"
                     name="drop"
-                    value={formData.pickupLocation}
+                    value={formData.pickLocation}
                     onChange={handleChange}
                     className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring-blue-500"
                   />
                 </div>
               </div>
-            )}
+            )} */}
+
             <div className="flex justify-center">
               <button
                 type="submit"
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring focus:ring-blue-300"
-                onClick={console.log("requested")}
               >
                 Request
               </button>
@@ -348,6 +368,25 @@ const RequestForm = () => {
           </form>
         </div>
       </div>
+
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={() => setModalIsOpen(false)}
+        contentLabel="Request Status"
+        className="fixed inset-0 flex items-center justify-center z-50 outline-none focus:outline-none"
+        overlayClassName="fixed inset-0 bg-gray-900 bg-opacity-50"
+      >
+        <div className="bg-white rounded-lg shadow-lg p-6 w-1/3 mx-auto">
+          <h2 className="text-xl font-semibold mb-4">{modalMessage}</h2>
+          <button 
+            onClick={() => setModalIsOpen(false)} 
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Close
+          </button>
+        </div>
+      </Modal>
+
     </>
   );
 };

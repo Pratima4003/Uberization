@@ -3,13 +3,14 @@ const bodyParser = require("body-parser");
 const connectToMongo = require("./db");
 const dotenv = require("dotenv");
 const cors = require("cors");
-const authenticate = require("../backend/controllers/authenticate");
 dotenv.config();
 
+// express app
 const app = express();
 connectToMongo();
 const port = process.env.PORT || 3000;
 
+// middlewares
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
@@ -18,21 +19,18 @@ app.get(port, (req, res) => {
   res.send("Hello");
 });
 
-// routes
-app.use("/api/newuser", require("./routes/newUser"));
-app.use("/api/newform", require("./routes/newForm"));
+// definition of routes
+const loginRouter = require("./routes/login");
+const formRouter = require("./routes/newForm");
 
-// login route
-app.post("/login", authenticate, (req, res) => {
-  if (req.isAdmin) {
-    res.status(200).json({message:"Admin"});
-  } else if (!req.isAdmin && req.isNormal) {
-    res.status(201).json({message: "Normal"});
-    // res.send("Normal");
-  } else {
-    res.status(403).send({ message: "Invalid User" });
-  }
-});
+
+
+// routes
+app.use(loginRouter);
+app.use(formRouter);
+// app.use("/api/newuser", require("./routes/newUser"));
+
+
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

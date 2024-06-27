@@ -8,12 +8,10 @@ const formSchema = new Schema({
   name: {
     type: String,
     required: true,
-    // unique: true,
   },
   psno: {
     type: String,
     required: true,
-    // unique: true,
   },
   phno: {
     type: String,

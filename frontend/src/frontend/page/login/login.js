@@ -9,7 +9,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(typeof username, typeof password);
+    // console.log(typeof username, typeof password);
     try {
       const response = await fetch('http://localhost:3000/login', {
         method: 'POST',
