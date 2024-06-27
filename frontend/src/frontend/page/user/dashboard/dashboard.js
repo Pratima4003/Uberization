@@ -1,10 +1,36 @@
-// Dashboard.js
-import React from "react";
-import Sidebar from "../../components/sidebar/sidebar";
-import Navbar1 from "../../components/header/navbar1";
+import React, { useEffect, useState } from "react";
+import Sidebar from "../../../components/sidebar/sidebar";
+import Navbar1 from "../../../components/header/navbar1";
+import { useLocation } from "react-router-dom";
 
 const Dashboard = () => {
-  const isLoggedIn = true;
+  const location = useLocation();
+  const { username } = location.state || {};
+
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    // Fetch user data when username changes
+    if (username) {
+      fetchUserData(username);
+    }
+  }, [username]);
+
+  const fetchUserData = async (username) => {
+    try {
+      const response = await fetch(`http://localhost:3000/findUser?username=${username}`);
+      console.log(response.json);
+      if (response.ok) {
+        const data = await response.json();
+        setUserData(data); // Assuming data returned is the user object
+      } else {
+        console.error("Error fetching user data:", response.status);
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
   return (
     <>
       {/* Navbar */}
@@ -35,11 +61,13 @@ const Dashboard = () => {
                     />
                   </svg>
                 </button>
-                <h1 className="text-xl text-left font-medium">Welcome User!</h1>
+                <h1 className="text-xl text-left font-medium">
+                  Welcome {username}!
+                </h1>
               </div>
               <div className="flex space-x-4">
                 <h1 className="text-xl font-medium text-right">
-                  PS No.: 123456
+                  PS No.: {userData ? userData.psno : "Loading..."}
                 </h1>
               </div>
             </div>
@@ -56,7 +84,8 @@ const Dashboard = () => {
                   </h4>
                   <p className="text-gray-500">
                     Displays the total number of times user has booked vehicles.
-                    (dynamic value from database)
+                    {/* Assuming userData is an object with this information */}
+                    {userData ? userData.bookingsCount : "Loading..."}
                   </p>
                 </div>
                 <div className="w-full bg-white rounded-lg hover:bg-gray-100 shadow-md p-4">
@@ -64,8 +93,10 @@ const Dashboard = () => {
                     Requests Pending
                   </h4>
                   <p className="text-gray-500">
-                    Displays the number of requests pending(if user has
+                    Displays the number of requests pending (if user has
                     requested, else 0).
+                    {/* Assuming userData is an object with this information */}
+                    {userData ? userData.pendingRequests : "Loading..."}
                   </p>
                 </div>
                 <div className="w-full bg-white rounded-lg hover:bg-gray-100 shadow-md p-4">
@@ -75,6 +106,8 @@ const Dashboard = () => {
                   <p className="text-gray-500">
                     Displays the name of place most frequently visited by the
                     user.
+                    {/* Assuming userData is an object with this information */}
+                    {userData ? userData.frequentPlace : "Loading..."}
                   </p>
                 </div>
                 <div className="w-full bg-white rounded-lg hover:bg-gray-100 shadow-md p-4">
@@ -83,6 +116,8 @@ const Dashboard = () => {
                   </h4>
                   <p className="text-gray-500">
                     Displays the name of vehicle used frequently.
+                    {/* Assuming userData is an object with this information */}
+                    {userData ? userData.frequentCar : "Loading..."}
                   </p>
                 </div>
               </div>

@@ -1,5 +1,6 @@
+// frontend login page
+
 import React, { useState } from "react";
-import Axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -22,9 +23,8 @@ const Login = () => {
       if (response.status === 200) {
         navigate("/adminDashboard");
       } else if (response.status === 201) {
-        navigate("/dashboard");
+        navigate("/dashboard", { state: { username } });
       } else {
-        console.log("hellow");
         alert("Invalid User");
       }
     } catch (error) {

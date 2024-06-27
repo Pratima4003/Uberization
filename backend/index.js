@@ -22,12 +22,14 @@ app.get(port, (req, res) => {
 // definition of routes
 const loginRouter = require("./routes/login");
 const formRouter = require("./routes/newForm");
+const findUserRouter = require("./routes/findUser");
 
 
 
 // routes
 app.use(loginRouter);
 app.use(formRouter);
+app.use(findUserRouter);
 // app.use("/api/newuser", require("./routes/newUser"));
 
 
