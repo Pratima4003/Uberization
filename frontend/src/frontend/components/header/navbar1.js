@@ -13,7 +13,6 @@ export default function Navbar1({ isLoggedIn: initialLoginState }) {
 
   const handleLogout = () => {
     // Implement logout logic, navigate to home
-    navigate("/");
     setIsLoggedIn(false);
   };
 
@@ -29,23 +28,13 @@ export default function Navbar1({ isLoggedIn: initialLoginState }) {
             />
           </Link>
           <div className="flex items-center lg:order-2">
-            <Link
-              to="/"
-              className="text-gray-800 hover:bg-gray-50 focus:ring-2 focus:ring-gray-100 rounded-lg text-xl font-medium px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
-            >
-              Home
-            </Link>
             {isLoggedIn ? (
               <>
                 <Link
-                  to="/dashboard"
-                  className="hover:bg-gray-50 focus:ring-2 focus:ring-gray-100 rounded-lg"
+                  to="/"
+                  className="text-gray-800 hover:bg-gray-50 focus:ring-2 focus:ring-gray-100 rounded-lg text-xl font-medium px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
                 >
-                  <img
-                    src="https://static.vecteezy.com/system/resources/previews/019/879/186/non_2x/user-icon-on-transparent-background-free-png.png"
-                    className="mr-3 h-12"
-                    alt="User Icon"
-                  />
+                  Home
                 </Link>
                 <button
                   className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"

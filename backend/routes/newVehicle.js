@@ -3,9 +3,9 @@
 const express = require("express");
 const { body, validationResult } = require("express-validator");
 const Vehicle = require("../models/Vehicle");
-const vehicleRouter = express.Router();
+const newVehicleRouter = express.Router();
 
-vehicleRouter.get(
+newVehicleRouter.get(
   "/newvehicle",
   [
     body("model_name", "Enter a valid model name").isLength({ min: 2 }),
@@ -34,4 +34,4 @@ vehicleRouter.get(
   }
 );
 
-module.exports = vehicleRouter;
+module.exports = newVehicleRouter;
