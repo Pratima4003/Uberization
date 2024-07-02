@@ -27,6 +27,7 @@ const findUserRouter = require("./routes/findUser");
 const driverRouter = require("./routes/newDriver");
 const newVehicleRouter = require("./routes/newVehicle");
 const findVehicleRouter = require("./routes/findVehicle");
+const findDriverRouter = require("./routes/findDriver");
 const requestApprovalRouter = require("./routes/requestApproval");
 
 // routes
@@ -37,6 +38,7 @@ app.use(findUserRouter);
 app.use(driverRouter);
 app.use(newVehicleRouter);
 app.use(findVehicleRouter);
+app.use(findDriverRouter);
 app.use(requestApprovalRouter);
 
 app.listen(port, () => {
