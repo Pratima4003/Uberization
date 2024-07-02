@@ -65,30 +65,65 @@ const RequestForm = () => {
   //   setShowAdditionalFields(e.target.checked);
   // };
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   const jsonData = JSON.stringify(formData);
+  //   try {
+  //     const response = await fetch('http://localhost:3000/newform', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       },
+  //       body: jsonData
+  //     });
+  //     if (response.status === 200) {
+  //       setModalMessage("Request Sent Successfully");
+  //     } else {
+  //       setModalMessage("Request Not Sent. Please Refill Form with valid inputs");
+  //     }
+  //     setModalIsOpen(true);
+  //   } catch (error) {
+  //     setModalMessage("Request Failed. Please check your Data and try again.");
+  //     setModalIsOpen(true);
+  //   }
+  //   // setShowAdditionalFields(false);
+  // };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const jsonData = JSON.stringify(formData);
-    try {
-      const response = await fetch('http://localhost:3000/newform', {
+  const apiEndpoints = [
+    'http://localhost:3000/newform',
+    'http://localhost:3000/newReqAppr'
+  ];
+
+  try {
+    const requests = apiEndpoints.map(endpoint =>
+      fetch(endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: jsonData
-      });
-      if (response.status === 200) {
-        setModalMessage("Request Sent Successfully");
-      } else {
-        setModalMessage("Request Not Sent. Please Refill Form with valid inputs");
-      }
-      setModalIsOpen(true);
-    } catch (error) {
-      setModalMessage("Request Failed. Please check your Data and try again.");
-      setModalIsOpen(true);
+      })
+    );
+
+    const responses = await Promise.all(requests);
+
+    if (responses.every(response => response.status === 200)) {
+      setModalMessage("Request Sent Successfully to all APIs");
+    } else {
+      setModalMessage("Request Not Sent. Please Refill Form with valid inputs");
     }
-    // setShowAdditionalFields(false);
-  };
+    setModalIsOpen(true);
+  } catch (error) {
+    setModalMessage("Request Failed. Please check your Data and try again.");
+    setModalIsOpen(true);
+  }
+};
+
 
   return (
     <>

@@ -21,7 +21,7 @@ app.get(port, (req, res) => {
 
 // definition of routes
 const loginRouter = require("./routes/login");
-const newUserRouter = require("./routes/newUser")
+const newUserRouter = require("./routes/newUser");
 const formRouter = require("./routes/newForm");
 const findUserRouter = require("./routes/findUser");
 const driverRouter = require("./routes/newDriver");
@@ -29,6 +29,8 @@ const newVehicleRouter = require("./routes/newVehicle");
 const findVehicleRouter = require("./routes/findVehicle");
 const findDriverRouter = require("./routes/findDriver");
 const requestApprovalRouter = require("./routes/requestApproval");
+const getReqApprovalRouter = require("./routes/getReqApproval");
+const updateRequestRouter = require("./routes/updateRequest");
 
 // routes
 app.use(loginRouter);
@@ -40,6 +42,8 @@ app.use(newVehicleRouter);
 app.use(findVehicleRouter);
 app.use(findDriverRouter);
 app.use(requestApprovalRouter);
+app.use(getReqApprovalRouter);
+app.use(updateRequestRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
