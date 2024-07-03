@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import Sidebar from "../../../components/sidebar/sidebar";
 import Navbar1 from "../../../components/header/navbar1";
@@ -63,31 +63,6 @@ const RequestForm = () => {
 
   // const handleCheckboxChange = (e) => {
   //   setShowAdditionalFields(e.target.checked);
-  // };
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   const jsonData = JSON.stringify(formData);
-  //   try {
-  //     const response = await fetch('http://localhost:3000/newform', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json'
-  //       },
-  //       body: jsonData
-  //     });
-  //     if (response.status === 200) {
-  //       setModalMessage("Request Sent Successfully");
-  //     } else {
-  //       setModalMessage("Request Not Sent. Please Refill Form with valid inputs");
-  //     }
-  //     setModalIsOpen(true);
-  //   } catch (error) {
-  //     setModalMessage("Request Failed. Please check your Data and try again.");
-  //     setModalIsOpen(true);
-  //   }
-  //   // setShowAdditionalFields(false);
   // };
 
   const handleSubmit = async (e) => {
