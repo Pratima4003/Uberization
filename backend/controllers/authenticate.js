@@ -1,10 +1,14 @@
 // authenticate.js
 
 const User = require("../models/User");
+const basicAuth = require("basic-auth");
 
 const authenticate = async (req, res, next) => {
   const credentials = req.body;
-  // console.log(credentials);
+
+  // for thunderclient verification
+  // const credentials = basicAuth(req);
+  console.log(credentials);
   if (!credentials) {
     return res.status(401).json({ message: "Access denied" });
   }
@@ -14,7 +18,10 @@ const authenticate = async (req, res, next) => {
     return next();
   }
 
-  User.findOne({ name: credentials.username, password: credentials.password })
+  await User.findOne({
+    name: credentials.username,
+    password: credentials.password,
+  })
     .then((user) => {
       if (user) {
         req.isAdmin = false;

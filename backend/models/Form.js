@@ -29,10 +29,30 @@ const formSchema = new Schema({
   //     type: Date,
   //     default: Date.now,
   //   },
-  //   pickTime: {
-  //     type: String,
-  //     default: Date.now,
-  //   },
+  //  pickTime: {
+  //    type: String,
+  //    default: Date.now,
+  //  },
+  return: {
+    type: Boolean,
+    default: false,
+    required: true,
+  },
+  returnPick:{
+    type: String,
+    default: "",
+    required: true,
+  },
+  returnDrop:{
+    type: String,
+    default: "",
+    required: true,
+  },
+  haltTime: {
+    type: String,
+    default: "",
+    required: true,
+  }
 });
 
 const Form = mongoose.model("Form", formSchema);

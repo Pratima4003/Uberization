@@ -18,7 +18,9 @@ const Dashboard = () => {
 
   const fetchUserData = async (username) => {
     try {
-      const response = await fetch(`http://localhost:3000/findUser?username=${username}`);
+      const response = await fetch(
+        `http://localhost:3000/findUser?username=${username}`
+      );
       console.log(response.json);
       if (response.ok) {
         const data = await response.json();
@@ -37,7 +39,7 @@ const Dashboard = () => {
       <Navbar1 isLoggedIn={true} />
       <div className="flex h-screen bg-gray-200">
         {/* Sidebar */}
-        <Sidebar />
+        <Sidebar username={username} />
 
         {/* Content Area */}
         <div className="flex-1 flex flex-col overflow-hidden">
