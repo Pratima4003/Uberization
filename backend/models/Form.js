@@ -36,23 +36,23 @@ const formSchema = new Schema({
   return: {
     type: Boolean,
     default: false,
-    required: true,
+    // required: true,
   },
-  returnPick:{
+  returnPick: {
     type: String,
     default: "",
-    required: true,
+    // required: true,
   },
-  returnDrop:{
+  returnDrop: {
     type: String,
     default: "",
-    required: true,
+    // required: true,
   },
   haltTime: {
     type: String,
     default: "",
-    required: true,
-  }
+    // required: true,
+  },
 });
 
 const Form = mongoose.model("Form", formSchema);

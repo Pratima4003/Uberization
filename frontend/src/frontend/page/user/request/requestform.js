@@ -4,7 +4,7 @@ import Sidebar from "../../../components/sidebar/sidebar";
 import Navbar1 from "../../../components/header/navbar1";
 
 // initialize the modal app
-Modal.setAppElement('#root');
+Modal.setAppElement("#root");
 
 const RequestForm = () => {
   const [formData, setFormData] = useState({
@@ -13,12 +13,15 @@ const RequestForm = () => {
     phno: "",
     dropLocation: "",
     pickLocation: "",
-    // destinationType: "instation",
-    // fromDate: "",
-    // toDate: "",
-    // pickupTime: "",
-    // dropTime: "",
-    // halt: "",
+    destinationType: "instation",
+    fromDate: "",
+    toDate: "",
+    pickupTime: "",
+    dropTime: "",
+    halt: "",
+    returnFlag: false,
+    returnPick: "",
+    returnDrop: "",
   });
 
   const [showAdditionalFields, setShowAdditionalFields] = useState(false);
@@ -29,85 +32,82 @@ const RequestForm = () => {
     const { name, value } = e.target;
 
     if (!showAdditionalFields) {
-      // If additional fields are not shown, update normally
       setFormData({
         ...formData,
         [name]: value,
       });
-    } 
-    // else {
-    //   // If additional fields are shown, handle swap and autofill logic
-    //   if (name === "pickLocation") {
-    //     // Update main pickLocation and autofill additionalField2 (Drop Location)
-    //     setFormData({
-    //       ...formData,
-    //       pickLocation: value,
-    //       drop: value,
-    //     });
-    //   } else if (name === "destinationName") {
-    //     // Update main destinationName and autofill additionalField1 (Pickup Location)
-    //     setFormData({
-    //       ...formData,
-    //       dropLocation: value,
-    //       pickup: value,
-    //     });
-    //   } else {
-    //     // For other fields, update normally
-    //     setFormData({
-    //       ...formData,
-    //       [name]: value,
-    //     });
-    //   }
-    // }
+    } else {
+       setFormData({
+        ...formData,
+        returnPick:value,
+       });
+       setFormData({
+        ...formData,
+        returnDrop:value,
+       });
+        // For other details, update normally
+        setFormData({
+          ...formData,
+          [name]: value,
+        });
+    }
+
   };
 
-  // const handleCheckboxChange = (e) => {
-  //   setShowAdditionalFields(e.target.checked);
-  // };
+  const handleCheckboxChange = (e) => {
+    setFormData({
+      ...formData,
+      returnFlag: true,
+    });
+    setShowAdditionalFields(e.target.checked);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const jsonData = JSON.stringify(formData);
-  const apiEndpoints = [
-    'http://localhost:3000/newform',
-    'http://localhost:3000/newReqAppr'
-  ];
+    console.log(formData.returnFlag);
+    console.log(formData);
+    const apiEndpoints = [
+      "http://localhost:3000/newform",
+      "http://localhost:3000/newReqAppr",
+    ];
 
-  try {
-    const requests = apiEndpoints.map(endpoint =>
-      fetch(endpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: jsonData
-      })
-    );
+    try {
+      const requests = apiEndpoints.map((endpoint) =>
+        fetch(endpoint, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: jsonData,
+        })
+      );
 
-    const responses = await Promise.all(requests);
+      const responses = await Promise.all(requests);
 
-    if (responses.every(response => response.status === 200)) {
-      setModalMessage("Request Sent Successfully to all APIs");
-    } else {
-      setModalMessage("Request Not Sent. Please Refill Form with valid inputs");
+      if (responses.every((response) => response.status === 200)) {
+        setModalMessage("Request Sent Successfully to all APIs");
+      } else {
+        setModalMessage(
+          "Request Not Sent. Please Refill Form with valid inputs"
+        );
+      }
+      setModalIsOpen(true);
+    } catch (error) {
+      setModalMessage("Request Failed. Please check your Data and try again.");
+      setModalIsOpen(true);
     }
-    setModalIsOpen(true);
-  } catch (error) {
-    setModalMessage("Request Failed. Please check your Data and try again.");
-    setModalIsOpen(true);
-  }
-};
-
+  };
 
   return (
     <>
       {/* Navbar */}
       <Navbar1 isLoggedIn={true} />
-      <div className="flex bg-gray-200">
+      <div className="flex h-auto bg-gray-200">
         {/* Sidebar */}
         <Sidebar />
-        <div className="max-w-md h-screen mx-auto bg-white p-6 rounded-md shadow-md">
+        <div className="max-w-md mx-auto bg-white p-6 rounded-md shadow-md">
           <h2 className="text-4xl font-semibold text-center mb-6 font-sans">
             Request Form
           </h2>
@@ -298,7 +298,7 @@ const RequestForm = () => {
                 />
               </div>
             </div>
-            {/* <div className="mb-4">
+            <div className="mb-4">
               <label htmlFor="additionalFields" className="flex items-center">
                 <input
                   type="checkbox"
@@ -312,9 +312,9 @@ const RequestForm = () => {
                   Return
                 </span>
               </label>
-            </div> */}
+            </div>
 
-            {/* {showAdditionalFields && (
+            {showAdditionalFields && (
               <div className="grid grid-cols-1 gap-4">
                 <div className="mb-4">
                   <label
@@ -334,7 +334,7 @@ const RequestForm = () => {
                 </div>
                 <div className="mb-4">
                   <label
-                    htmlFor="pickup"
+                    htmlFor="additionalField1"
                     className="block text-sm font-medium text-gray-700"
                   >
                     PickUp Location
@@ -350,7 +350,7 @@ const RequestForm = () => {
                 </div>
                 <div className="mb-4">
                   <label
-                    htmlFor="drop"
+                    htmlFor="additionalField1"
                     className="block text-sm font-medium text-gray-700"
                   >
                     Drop Location
@@ -365,7 +365,7 @@ const RequestForm = () => {
                   />
                 </div>
               </div>
-            )} */}
+            )}
 
             <div className="flex justify-center">
               <button
@@ -388,15 +388,14 @@ const RequestForm = () => {
       >
         <div className="bg-white rounded-lg shadow-lg p-6 w-1/3 mx-auto">
           <h2 className="text-xl font-semibold mb-4">{modalMessage}</h2>
-          <button 
-            onClick={() => setModalIsOpen(false)} 
+          <button
+            onClick={() => setModalIsOpen(false)}
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           >
             Close
           </button>
         </div>
       </Modal>
-
     </>
   );
 };
