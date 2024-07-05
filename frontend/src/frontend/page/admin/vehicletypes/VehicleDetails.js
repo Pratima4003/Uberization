@@ -39,14 +39,16 @@ function VehicleDetails() {
 
   return (
     <>
-      {/* Navbar */}
-      <Navbar1 isLoggedIn={true} />
+      <div className="sticky-navbar">
+        {/* Navbar */}
+        <Navbar1 isLoggedIn={true} />
+      </div>
       <div className="flex h-screen bg-gray-200">
         <AdminSidebar />
         {/* Main Content */}
         <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
           <div className="container mx-auto px-6 py-8">
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-1 gap-6 mt-8">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-1 gap-2 mt-8">
               {vehicles.map((vehicle) => (
                 <div
                   key={vehicle._id}

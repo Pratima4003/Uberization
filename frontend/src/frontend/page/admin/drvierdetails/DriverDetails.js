@@ -35,8 +35,10 @@ function DriverDetails() {
 
   return (
     <>
-      {/* Navbar */}
-      <Navbar1 isLoggedIn={true} />
+      <div className="sticky-navbar">
+        {/* Navbar */}
+        <Navbar1 isLoggedIn={true} />
+      </div>
       <div className="flex h-screen bg-gray-200">
         <AdminSidebar />
         {/* Main Content */}

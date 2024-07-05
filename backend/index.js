@@ -23,26 +23,28 @@ app.get(port, (req, res) => {
 const loginRouter = require("./routes/login");
 const newUserRouter = require("./routes/newUser");
 const formRouter = require("./routes/newForm");
-const findUserRouter = require("./routes/findUser");
+// const findUserRouter = require("./routes/findUser");
 const driverRouter = require("./routes/newDriver");
 const newVehicleRouter = require("./routes/newVehicle");
 const findVehicleRouter = require("./routes/findVehicle");
 const findDriverRouter = require("./routes/findDriver");
 const requestApprovalRouter = require("./routes/requestApproval");
 const getReqApprovalRouter = require("./routes/getReqApproval");
+const getUserRequestsRouter = require("./routes/findRequests");
 const updateRequestRouter = require("./routes/updateRequest");
 
 // routes
 app.use(loginRouter);
 app.use(newUserRouter);
 app.use(formRouter);
-app.use(findUserRouter);
+// app.use(findUserRouter);
 app.use(driverRouter);
 app.use(newVehicleRouter);
 app.use(findVehicleRouter);
 app.use(findDriverRouter);
 app.use(requestApprovalRouter);
 app.use(getReqApprovalRouter);
+app.use(getUserRequestsRouter);
 app.use(updateRequestRouter);
 
 app.listen(port, () => {

@@ -1,75 +1,83 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../../../components/sidebar/sidebar";
 import Navbar1 from "../../../components/header/navbar1";
+import useData from "../../../components/useData/useData";
 
 function Request() {
+  const [error, setError] = useState(null);
+  const [requests, setRequests] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const { getUserData } = useData(); // Destructure getUserData from the custom hook
+
+  useEffect(() => {
+    const uD = getUserData();
+    const fetchReqApps = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:3000/findUserRequests?psno=${uD.psno}`
+        );
+        const result = await response.json();
+        console.log(result.customUserRequest);
+        if (!response.ok) {
+          throw new Error("Failed to fetch requests");
+        }
+        setRequests(result.customUserRequest);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchReqApps();
+  }, []);
+
   return (
     <>
-      {/* Navbar */}
-      <Navbar1 isLoggedIn={true} />
-      <div className="flex h-auto bg-gray-200">
+      <div className="sticky-navbar">
+        {/* Navbar */}
+        <Navbar1 isLoggedIn={true} />
+      </div>
+      <div className="flex h-screen bg-gray-200">
         <Sidebar />
         <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
           <div className="container mx-auto px-6 py-8">
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-1 gap-6 mt-8">
-              <div className="w-full bg-white rounded-lg shadow-md p-4 flex items-center">
-                <div>
-                  <h4 className="text-gray-700 text-lg font-medium mb-2">
-                    Request 1
-                  </h4>
-                  <p className="text-gray-500 mb-2">Vehicle Allocated: XYZ</p>
-                  <p className="text-gray-500 mb-2">Driver Assigned: PQR</p>
-                  <p className="text-gray-500 mb-2">Number Plate: ABC-1234</p>
-                  <p className="text-gray-500 mb-2">
-                    Number of people that can be seated except driver
-                  </p>
-                  <p className="text-gray-500 mb-2">
-                    Pickup Location: (taken from form data)
-                  </p>
-                  <p className="text-gray-500 mb-2">
-                    Drop Location: (taken from form data)
-                  </p>
-                  <div className="flex space-x-4">
-                    <button
-                      className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded"
-                      onClick={console.log("requested")}
-                    >
-                      Pending
-                    </button>
-                    {/* form visible till the drop time field is filled */}
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 gap-6 mt-8">
+              {requests.map((request) => (
+                <div
+                  key={request._id}
+                  className="w-full bg-white rounded-lg shadow-md p-4 flex flex-col items-start"
+                >
+                  <div className="mb-4">
+                    <p className="text-gray-500 mb-1">
+                      PickUp Location: {request.pickupLocation}
+                    </p>
+                    <p className="text-gray-500 mb-1">
+                      Drop Location: {request.dropLocation}
+                    </p>
+                    <p className="text-gray-500 mb-1">
+                      Vehicle Allocated: {request.vehicle_model}
+                    </p>
+                    <p className="text-gray-500 mb-1">
+                      Vehicle Number: {request.vehicle_number}
+                    </p>
+                    <p className="text-gray-500 mb-1">
+                      Driver Assigned: {request.driver_name}
+                    </p>
+                    <p className="text-gray-500 mb-1">
+                      Driver Contact: {request.driver_number}
+                    </p>
+                    <div>
+                      <p
+                        className={`font-bold mb-2 ${
+                          request.req_status ? "text-green-500" : "text-red-500"
+                        }`}
+                      >
+                        {request.req_status ? "Approved" : "Not Approved"}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-
-              <div className="w-full bg-white rounded-lg shadow-md p-4 flex items-center">
-                <div>
-                  <h4 className="text-gray-700 text-lg font-medium mb-2">
-                    Request 2
-                  </h4>
-                  <p className="text-gray-500 mb-2">Vehicle Allocated: ABC</p>
-                  <p className="text-gray-500 mb-2">Driver Assigned: DEF</p>
-                  <p className="text-gray-500 mb-2">Number Plate: ABC-1234</p>
-                  <p className="text-gray-500 mb-2">
-                    Number of people that can be seated except driver
-                  </p>
-                  <p className="text-gray-500 mb-2">
-                    Pickup Location: (taken from form data)
-                  </p>
-                  <p className="text-gray-500 mb-2">
-                    Drop Location: (taken from form data)
-                  </p>
-                  <div className="flex space-x-4">
-                    <button
-                      className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded"
-                      onClick={console.log("requested")}
-                    >
-                      Pending
-                    </button>
-                    {/* form details visible till the drop time field is filled */}
-                    {/* when pending clicked, form should reopen, autofill the data from the database except for the drop time field (which would be enabled) */}
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </main>

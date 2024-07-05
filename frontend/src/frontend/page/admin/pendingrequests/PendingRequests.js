@@ -7,8 +7,10 @@ import Navbar1 from "../../../components/header/navbar1";
 function PendingRequests() {
   return (
     <>
-      {/* Navbar */}
-      <Navbar1 isLoggedIn={true} />
+      <div className="sticky-navbar">
+        {/* Navbar */}
+        <Navbar1 isLoggedIn={true} />
+      </div>
       <div className="flex h-auto bg-gray-200">
         <AdminSidebar />
         <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">

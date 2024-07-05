@@ -1,19 +1,54 @@
-// adminSidebar.js
-import React from 'react';
+import React from "react";
+import { Link } from "react-router-dom";
 
 const AdminSidebar = () => {
   return (
-    <div className="bg-gray-800 text-gray-100 w-60 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out">
-      <h2 className="text-2xl font-semibold uppercase">Dashboard</h2>
+    <div className="bg-gray-800 text-gray-100 w-58 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out">
+      <h2 className="text-2xl font-semibold uppercase">ADMIN</h2>
       <nav>
-        <a href="/adminDashboard" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white">Dashboard</a>
-        <a href="/vehicledetails" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white">Vehicle Details</a>
-        <a href="/driverdetails" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white">Drivers Details</a>
-        <a href="/requestapproval" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white">Request Approval</a>
-        <a href="/pendingrequest" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white">Pending Requests</a>
-        <a href="/track" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white">Track Vehicle</a>
-        <a href="/map" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white">Track Live</a>
-        <a href="#" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-red-700 hover:text-white">Logout</a>
+        <Link
+          to="/adminDashboard"
+          className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white"
+        >
+          Dashboard
+        </Link>
+        <Link
+          to="/vehicledetails"
+          className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white"
+        >
+          Vehicle Details
+        </Link>
+        <Link
+          to="/driverdetails"
+          className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white"
+        >
+          Drivers Details
+        </Link>
+        <Link
+          to="/requestapproval"
+          className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white"
+        >
+          Request Approval
+        </Link>
+        {/* <Link to="/pendingrequest" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white">Pending Requests</Link> */}
+        <Link
+          to="/track"
+          className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white"
+        >
+          Track Vehicle
+        </Link>
+        <Link
+          to="/map"
+          className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white"
+        >
+          Track Live
+        </Link>
+        <Link
+          to="#"
+          className="block py-2.5 px-4 rounded transition duration-200 hover:bg-red-700 hover:text-white"
+        >
+          Logout
+        </Link>
       </nav>
     </div>
   );

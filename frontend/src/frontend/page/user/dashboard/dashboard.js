@@ -9,10 +9,8 @@ const Dashboard = () => {
 
   useEffect(() => {
     const uD = getUserData(); // Get the user data from sessionStorage
-    console.log(uD); // You can use userData as needed in your component
     setUserData(uD);
   }, [getUserData]);
-  console.log(userData);
 
   return (
     <>

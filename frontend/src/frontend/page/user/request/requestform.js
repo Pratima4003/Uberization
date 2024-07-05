@@ -37,21 +37,20 @@ const RequestForm = () => {
         [name]: value,
       });
     } else {
-       setFormData({
+      setFormData({
         ...formData,
-        returnPick:value,
-       });
-       setFormData({
+        returnPick: value,
+      });
+      setFormData({
         ...formData,
-        returnDrop:value,
-       });
-        // For other details, update normally
-        setFormData({
-          ...formData,
-          [name]: value,
-        });
+        returnDrop: value,
+      });
+      // For other details, update normally
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
     }
-
   };
 
   const handleCheckboxChange = (e) => {
@@ -87,7 +86,7 @@ const RequestForm = () => {
       const responses = await Promise.all(requests);
 
       if (responses.every((response) => response.status === 200)) {
-        setModalMessage("Request Sent Successfully to all APIs");
+        setModalMessage("Request Sent Successfully!");
       } else {
         setModalMessage(
           "Request Not Sent. Please Refill Form with valid inputs"
