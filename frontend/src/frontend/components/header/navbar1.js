@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Landing from "../../page/landing/landing";
 
 export default function Navbar1({ isLoggedIn: initialLoginState }) {
   const [isLoggedIn, setIsLoggedIn] = useState(initialLoginState);
@@ -13,13 +14,13 @@ export default function Navbar1({ isLoggedIn: initialLoginState }) {
 
   const handleLogout = () => {
     // Implement logout logic, navigate to home
-    navigate("/landing");
+    navigate("/");
     setIsLoggedIn(false);
   };
 
   return (
     <header className="shadow sticky z-50 top-0">
-      <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5">
+      <nav className="bg-gray-200 border-gray-200 px-4 lg:px-6 py-2.5">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
           <Link to="/" className="flex items-center">
             <img
@@ -27,6 +28,7 @@ export default function Navbar1({ isLoggedIn: initialLoginState }) {
               className="mr-3 h-12"
               alt="Logo"
             />
+            
           </Link>
           <div className="flex items-center lg:order-2">
             {isLoggedIn ? (
