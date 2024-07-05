@@ -13,6 +13,7 @@ export default function Navbar1({ isLoggedIn: initialLoginState }) {
 
   const handleLogout = () => {
     // Implement logout logic, navigate to home
+    navigate("/landing");
     setIsLoggedIn(false);
   };
 

@@ -2,36 +2,47 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "../../../components/sidebar/sidebar";
 import Navbar1 from "../../../components/header/navbar1";
 import { useLocation } from "react-router-dom";
+import useData from "../../../components/useData/useData";
 
 const Dashboard = () => {
   const location = useLocation();
   const { username } = location.state || {};
 
   const [userData, setUserData] = useState(null);
+  const { getUserData } = useData(); // Destructure getUserData from the custom hook
+
+  // useEffect(() => {
+  //   // Fetch user data when username changes
+  //   if (username) {
+  //     fetchUserData(username);
+  //   }
+  // }, [username]);
+
 
   useEffect(() => {
-    // Fetch user data when username changes
-    if (username) {
-      fetchUserData(username);
-    }
-  }, [username]);
+    const uD = getUserData(); // Get the user data from sessionStorage
+    console.log(uD); // You can use userData as needed in your component
+    setUserData(uD);
+  }, [getUserData]);
+  console.log(userData);
 
-  const fetchUserData = async (username) => {
-    try {
-      const response = await fetch(
-        `http://localhost:3000/findUser?username=${username}`
-      );
-      console.log(response.json);
-      if (response.ok) {
-        const data = await response.json();
-        setUserData(data); // Assuming data returned is the user object
-      } else {
-        console.error("Error fetching user data:", response.status);
-      }
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-    }
-  };
+
+  // const fetchUserData = async (username) => {
+  //   try {
+  //     const response = await fetch(
+  //       `http://localhost:3000/findUser?username=${username}`
+  //     );
+  //     console.log(response.json);
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       setUserData(data); // Assuming data returned is the user object
+  //     } else {
+  //       console.error("Error fetching user data:", response.status);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching user data:", error);
+  //   }
+  // };
 
   return (
     <>
@@ -64,7 +75,7 @@ const Dashboard = () => {
                   </svg>
                 </button>
                 <h1 className="text-xl text-left font-medium">
-                  Welcome {username}!
+                  Welcome {userData ? userData.name : "Loading..."}!
                 </h1>
               </div>
               <div className="flex space-x-4">

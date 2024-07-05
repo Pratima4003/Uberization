@@ -26,6 +26,7 @@ const authenticate = async (req, res, next) => {
       if (user) {
         req.isAdmin = false;
         req.isNormal = true;
+        req.customData = { user };
         next();
       } else {
         res.status(401).json({ message: "Access denied" });

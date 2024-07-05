@@ -1,12 +1,14 @@
 // frontend login page
 
 import React, { useState } from "react";
+import useData from "../../components/useData/useData";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { setUserData } = useData();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,10 +21,14 @@ const Login = () => {
         },
         body: JSON.stringify({ username, password })
       });
+      const result = await response.json();
+      
       console.log(response.status);
       if (response.status === 200) {
         navigate("/adminDashboard");
       } else if (response.status === 201) {
+        setUserData(result.user.user);
+        // console.log("done");
         navigate("/dashboard", { state: { username } });
       } else {
         alert("Invalid User");

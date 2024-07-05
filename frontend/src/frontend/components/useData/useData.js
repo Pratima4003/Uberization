@@ -20,7 +20,8 @@ const useData = () => {
     // Return an object containing the saveUserData function and the current user data state
     return {
         setUserData: saveUserData, // Function to save/update the user data
-        userData // Current user data value
+        userData, // Current user data value
+        getUserData
     };
 };
 
