@@ -23,9 +23,9 @@ export default function Landing() {
     };
 
     return (
-        <div className="sticky-navbar" style={{backgroundColor: "gray"}}>
+        <div className="sticky-navbar" style={{backgroundColor: "gray", height:"auto"}}>
             <Navbar1 />
-            <div style={{ width: '80%', margin: '0 auto'}}>
+            <div style={{ width: '90%', margin: '0 auto'}}>
                 <Slider {...settings}>
                     <div>
                         <img 

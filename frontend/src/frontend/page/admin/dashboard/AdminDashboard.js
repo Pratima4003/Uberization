@@ -6,8 +6,10 @@ import AdminSidebar from "../../../components/sidebar/AdminSidebar";
 const AdminDashboard = () => {
   return (
     <>
-      {/* Navbar */}
-      <Navbar1 isLoggedIn={true} />
+      <div className="sticky-navbar">
+        {/* Navbar */}
+        <Navbar1 isLoggedIn={true} />
+      </div>
       <div className="flex h-screen bg-gray-200">
         {/* Sidebar */}
         <AdminSidebar />
@@ -33,12 +35,12 @@ const AdminDashboard = () => {
                     />
                   </svg>
                 </button>
-                <h1 className="text-xl text-left font-medium">
+                <h1 className="text-xl text-left font-medium font-BonaNovaSC">
                   Welcome Admin!
                 </h1>
               </div>
               <div className="flex space-x-4">
-                <h1 className="text-xl font-medium text-right">
+                <h1 className="text-xl font-medium text-right font-BonaNovaSC">
                   PS No.: 123456
                 </h1>
               </div>

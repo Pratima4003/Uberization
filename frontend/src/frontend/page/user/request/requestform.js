@@ -2,14 +2,18 @@ import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import Sidebar from "../../../components/sidebar/sidebar";
 import Navbar1 from "../../../components/header/navbar1";
+import useData from "../../../components/useData/useData";
 
 // initialize the modal app
 Modal.setAppElement("#root");
 
 const RequestForm = () => {
+  const { getUserData } = useData(); // Destructure getUserData from the custom hook
+  const uD = getUserData();
+
   const [formData, setFormData] = useState({
-    name: "",
-    psno: "",
+    name: uD.name,
+    psno: uD.psno,
     phno: "",
     dropLocation: "",
     pickLocation: "",
@@ -101,20 +105,22 @@ const RequestForm = () => {
 
   return (
     <>
-      {/* Navbar */}
-      <Navbar1 isLoggedIn={true} />
-      <div className="flex h-auto bg-gray-200">
+      <div className="sticky-nvabar">
+        {/* Navbar */}
+        <Navbar1 isLoggedIn={true} />
+      </div>
+      <div className="flex h-auto bg-purple-200">
         {/* Sidebar */}
         <Sidebar />
         <div className="max-w-md mx-auto bg-white p-6 rounded-md shadow-md">
-          <h2 className="text-4xl font-semibold text-center mb-6 font-sans">
+          <h2 className="text-5xl text-center mb-8 font-BonaNovaSC">
             Request Form
           </h2>
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label
                 htmlFor="name"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-gray-700 font-Roboto"
               >
                 Name
               </label>
@@ -122,6 +128,7 @@ const RequestForm = () => {
                 type="text"
                 id="name"
                 name="name"
+                disabled="disabled"
                 value={formData.name}
                 onChange={handleChange}
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring-blue-500"
@@ -132,7 +139,7 @@ const RequestForm = () => {
               <div className="mb-4">
                 <label
                   htmlFor="psno"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium text-gray-700 font-Roboto"
                 >
                   PS Number
                 </label>
@@ -140,6 +147,7 @@ const RequestForm = () => {
                   type="text"
                   id="psno"
                   name="psno"
+                  disabled="disabled"
                   value={formData.psno}
                   onChange={handleChange}
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring-blue-500"
@@ -149,7 +157,7 @@ const RequestForm = () => {
               <div className="mb-4">
                 <label
                   htmlFor="phno"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium text-gray-700 font-Roboto"
                 >
                   Phone Number
                 </label>
@@ -189,7 +197,7 @@ const RequestForm = () => {
               <div className="mb-4">
                 <label
                   htmlFor="pickLocation"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium text-gray-700 font-Roboto"
                 >
                   Pickup Location
                 </label>
@@ -206,7 +214,7 @@ const RequestForm = () => {
               <div className="mb-4">
                 <label
                   htmlFor="dropLocation"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium text-gray-700 font-Roboto"
                 >
                   Drop Location
                 </label>
@@ -224,7 +232,7 @@ const RequestForm = () => {
               <div className="mb-4">
                 <label
                   htmlFor="fromDate"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium text-gray-700 font-Roboto"
                 >
                   Required From
                 </label>
@@ -243,7 +251,7 @@ const RequestForm = () => {
               <div className="mb-4">
                 <label
                   htmlFor="toDate"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium text-gray-700 font-Roboto"
                 >
                   Required To
                 </label>
@@ -262,7 +270,7 @@ const RequestForm = () => {
               <div className="mb-4">
                 <label
                   htmlFor="pickupTime"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium text-gray-700 font-Roboto"
                 >
                   Pickup Time
                 </label>
@@ -281,7 +289,7 @@ const RequestForm = () => {
               <div className="mb-4">
                 <label
                   htmlFor="pickupTime"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium text-gray-700 font-Roboto"
                 >
                   Drop Time
                 </label>
@@ -307,7 +315,7 @@ const RequestForm = () => {
                   onChange={handleCheckboxChange}
                   className="mr-2"
                 />
-                <span className="text-sm font-medium text-gray-700">
+                <span className="text-sm font-medium text-gray-700 font-Roboto">
                   Return
                 </span>
               </label>
@@ -318,7 +326,7 @@ const RequestForm = () => {
                 <div className="mb-4">
                   <label
                     htmlFor="additionalField1"
-                    className="block text-sm font-medium text-gray-700"
+                    className="block text-sm font-medium text-gray-700 font-Roboto"
                   >
                     Halt Time
                   </label>
@@ -334,7 +342,7 @@ const RequestForm = () => {
                 <div className="mb-4">
                   <label
                     htmlFor="additionalField1"
-                    className="block text-sm font-medium text-gray-700"
+                    className="block text-sm font-medium text-gray-700 font-Roboto"
                   >
                     PickUp Location
                   </label>
@@ -350,7 +358,7 @@ const RequestForm = () => {
                 <div className="mb-4">
                   <label
                     htmlFor="additionalField1"
-                    className="block text-sm font-medium text-gray-700"
+                    className="block text-sm font-medium text-gray-700 font-Roboto"
                   >
                     Drop Location
                   </label>
@@ -369,7 +377,7 @@ const RequestForm = () => {
             <div className="flex justify-center">
               <button
                 type="submit"
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring focus:ring-blue-300"
+                className="bg-blue-700 hover:bg-blue-900 text-white font-semibold font-BonaNovaSC py-2 px-4 rounded focus:outline-none focus:ring focus:ring-blue-300"
               >
                 Request
               </button>
@@ -389,7 +397,7 @@ const RequestForm = () => {
           <h2 className="text-xl font-semibold mb-4">{modalMessage}</h2>
           <button
             onClick={() => setModalIsOpen(false)}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
           >
             Close
           </button>

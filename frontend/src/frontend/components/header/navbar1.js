@@ -20,15 +20,15 @@ export default function Navbar1({ isLoggedIn: initialLoginState }) {
 
   return (
     <header className="shadow sticky z-50 top-0">
-      <nav className="bg-gray-200 border-gray-200 px-4 lg:px-6 py-2.5">
+      <nav className="bg-gray-200 border-gray-200 px-4 lg:px-6 py-2">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
           <Link to="/" className="flex items-center">
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/e/e5/L%26T.png?20141228172036"
+              // src="lnt.png"
               className="mr-3 h-12"
               alt="Logo"
             />
-            
           </Link>
           <div className="flex items-center lg:order-2">
             {isLoggedIn ? (

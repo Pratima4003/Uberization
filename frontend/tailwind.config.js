@@ -1,10 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 
 module.exports = {
-  content: ["./index.html","./src/**/*.{html,js,ts,jsx,tsx}"],
+  content: ["./index.html", "./src/**/*.{html,js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        BonaNovaSC: ["Bona Nova SC", "static"],
+        Roboto: ["Roboto", "static"],
+        PTSerif: ["PT Serif", "static"],
+      },
+    },
   },
   plugins: [],
 };
-

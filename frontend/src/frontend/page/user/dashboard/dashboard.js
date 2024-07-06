@@ -23,9 +23,9 @@ const Dashboard = () => {
         <Sidebar />
 
         {/* Content Area */}
-        <div className="flex-1 flex flex-col overflow-hidden">
+        <div className="flex-1 flex flex-col overflow-y-hidden">
           {/* Top Navbar */}
-          <header className="bg-white w-full shadow flex">
+          <header className="bg-gray w-full shadow flex">
             <div className="flex w-full justify-between px-6 py-4">
               <div className="flex space-x-4">
                 <button className="text-gray-600 focus:outline-none md:hidden">
@@ -44,12 +44,12 @@ const Dashboard = () => {
                     />
                   </svg>
                 </button>
-                <h1 className="text-xl text-left font-medium">
+                <h1 className="text-3xl text-left font-bold font-medium font-BonaNovaSC">
                   Welcome {userData ? userData.name : "Loading..."}!
                 </h1>
               </div>
               <div className="flex space-x-4">
-                <h1 className="text-xl font-medium text-right">
+                <h1 className="text-3xl font-medium text-right font-BonaNovaSC">
                   PS No.: {userData ? userData.psno : "Loading..."}
                 </h1>
               </div>
@@ -57,7 +57,7 @@ const Dashboard = () => {
           </header>
 
           {/* Main Content */}
-          <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
+          <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-400">
             <div className="container mx-auto px-6 py-8">
               {/* Example Card Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 mt-8">
