@@ -6,7 +6,7 @@ module.exports = {
     extend: {
       fontFamily: {
         BonaNovaSC: ["Bona Nova SC", "static"],
-        Roboto: ["Roboto", "static"],
+        Ubuntu: ["Ubuntu", "static"],
         PTSerif: ["PT Serif", "static"],
       },
     },

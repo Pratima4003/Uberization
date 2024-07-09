@@ -1,4 +1,4 @@
-// Sidebar.js
+// Normal user sidebar
 import React from "react";
 import { Link } from "react-router-dom";
 import useData from "../useData/useData";
@@ -8,37 +8,37 @@ const Sidebar = () => {
   const uD = getUserData();
   return (
     <div className="bg-gray-800 text-gray-100 w-50 space-y-6 py-7 px-5 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out">
-      <h2 className="text-2xl font-semibold font-BonaNovaSC uppercase">
+      <h2 className="text-2xl text-center font-semibold font-BonaNovaSC">
         {uD.name}
       </h2>
       <nav>
         <Link
           to="/dashboard"
-          className="font-serif text-xl block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white"
+          className="font-Ubuntu text-lg block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white"
         >
           Dashboard
         </Link>
         <Link
           to="/requestform"
-          className="font-serif text-xl block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white"
+          className="font-Ubuntu text-lg block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white"
         >
           New Request
         </Link>
         <Link
           to="/request"
-          className="font-serif text-xl block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white"
+          className="font-Ubuntu text-lg block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white"
         >
           Your Requests
         </Link>
         <Link
           to="/trackvehicle"
-          className="font-serif text-xl block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white"
+          className="font-Ubuntu text-lg block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white"
         >
           Track Vehicle
         </Link>
         <Link
           to="#"
-          className="font-serif text-xl block py-2.5 px-4 rounded transition duration-200 hover:bg-red-700 hover:text-white"
+          className="font-Ubuntu text-lg block py-2.5 px-4 rounded transition duration-200 hover:bg-red-700 hover:text-white"
         >
           Logout
         </Link>

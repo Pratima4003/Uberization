@@ -4,13 +4,14 @@ import Navbar1 from "../../../components/header/navbar1";
 import useData from "../../../components/useData/useData";
 
 const Dashboard = () => {
-  const [userData, setUserData] = useState(null);
+  // const [userData, setUserData] = useState(null);
   const { getUserData } = useData(); // Destructure getUserData from the custom hook
+  const userData = getUserData();
 
-  useEffect(() => {
-    const uD = getUserData(); // Get the user data from sessionStorage
-    setUserData(uD);
-  }, [getUserData]);
+  // useEffect(() => {
+  //   const uD = getUserData(); // Get the user data from sessionStorage
+  //   setUserData(uD);
+  // }, [getUserData]);
 
   return (
     <>
@@ -44,7 +45,7 @@ const Dashboard = () => {
                     />
                   </svg>
                 </button>
-                <h1 className="text-3xl text-left font-bold font-medium font-BonaNovaSC">
+                <h1 className="text-3xl text-left font-medium font-BonaNovaSC">
                   Welcome {userData ? userData.name : "Loading..."}!
                 </h1>
               </div>
@@ -63,7 +64,7 @@ const Dashboard = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 mt-8">
                 <div className="w-full bg-white rounded-lg hover:bg-gray-100 shadow-md p-4">
                   <h4 className="text-gray-700 text-lg font-medium mb-4">
-                    Number of times vehicles booked
+                    Total Requests
                   </h4>
                   <p className="text-gray-500">
                     Displays the total number of times user has booked vehicles.
@@ -73,7 +74,7 @@ const Dashboard = () => {
                 </div>
                 <div className="w-full bg-white rounded-lg hover:bg-gray-100 shadow-md p-4">
                   <h4 className="text-gray-700 text-lg font-medium mb-4">
-                    Requests Pending
+                    Total Requests Pending for Approval
                   </h4>
                   <p className="text-gray-500">
                     Displays the number of requests pending (if user has

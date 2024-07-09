@@ -109,7 +109,7 @@ const RequestForm = () => {
         {/* Navbar */}
         <Navbar1 isLoggedIn={true} />
       </div>
-      <div className="flex h-auto bg-purple-200">
+      <div className="flex h-auto bg-gray-400">
         {/* Sidebar */}
         <Sidebar />
         <div className="max-w-md mx-auto bg-white p-6 rounded-md shadow-md">
