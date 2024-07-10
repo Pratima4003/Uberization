@@ -1,22 +1,16 @@
 import React, { useState, useEffect } from "react";
 import AdminSidebar from "../../../components/sidebar/AdminSidebar";
 import Navbar1 from "../../../components/header/navbar1";
-import { useNavigate } from "react-router-dom";
 
 function RequestApproval() {
-  // State to manage which card is expanded
   const [expandedCard, setExpandedCard] = useState(null);
-  // State to track selected vehicle and driver
   const [selectedVehicle, setSelectedVehicle] = useState("");
   const [selectedDriver, setSelectedDriver] = useState("");
-
   const [requests, setRequests] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [availableVehicles, setAvailableVehicles] = useState([]);
   const [disabled, setDisabled] = useState(false);
   const [availableDrivers, setAvailableDrivers] = useState([]);
-  const navigate = useNavigate();
 
   const fetchAvailableData = async () => {
     try {
@@ -25,7 +19,6 @@ function RequestApproval() {
         throw new Error("Failed to fetch available vehicles");
       }
       const vehiclesData = await vehiclesResponse.json();
-      // Filter available vehicles
       const filteredVehicles = vehiclesData.filter(
         (vehicle) => vehicle.available
       );
@@ -36,7 +29,6 @@ function RequestApproval() {
         throw new Error("Failed to fetch available drivers");
       }
       const driversData = await driversResponse.json();
-      // Filter available drivers
       const filteredDrivers = driversData.filter((driver) => driver.available);
       setAvailableDrivers(filteredDrivers);
     } catch (err) {
@@ -55,8 +47,6 @@ function RequestApproval() {
         setRequests(data);
       } catch (err) {
         setError(err.message);
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -64,10 +54,8 @@ function RequestApproval() {
     fetchAvailableData();
   }, []);
 
-  // Function to handle approval and update database
   const handleApprove = async (requestId) => {
     try {
-      // Update database with selected vehicle and driver availability as false
       await fetch(`http://localhost:3000/updateRequest/${requestId}`, {
         method: "PUT",
         headers: {
@@ -102,18 +90,14 @@ function RequestApproval() {
         )
       );
 
-      // Reload data after update
-      // Refetch available vehicles and drivers
       fetchAvailableData();
     } catch (error) {
       console.error("Error updating request:", error);
     }
   };
 
-  if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
-  // Function to toggle expanded state
   const toggleExpand = (cardId) => {
     if (expandedCard === cardId) {
       setExpandedCard(null);
@@ -122,13 +106,11 @@ function RequestApproval() {
     }
   };
 
-  // Function to handle vehicle selection
   const handleVehicleSelect = (e) => {
     const selectedVehicleId = e.target.value;
     setSelectedVehicle(selectedVehicleId);
   };
 
-  // Function to handle driver selection
   const handleDriverSelect = (e) => {
     const selectedDriverId = e.target.value;
     setSelectedDriver(selectedDriverId);
@@ -141,20 +123,19 @@ function RequestApproval() {
   return (
     <>
       <div className="sticky-navbar">
-        {/* Navbar */}
         <Navbar1 isLoggedIn={true} />
       </div>
-      <div className="flex h-screen w-full bg-gray-200">
+      <div className="flex h-screen bg-gray-200">
         <AdminSidebar />
-        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
+        <main className="flex-1 overflow-x-hidden bg-gray-400">
           <div className="container mx-auto px-6 py-1">
             <div className="grid grid-cols-2 gap-6 mt-8">
               {requests.map((request) => (
                 <div
                   key={request._id}
-                  className="w-full bg-white rounded-lg shadow-md p-4 flex flex-col items-start"
+                  className="w-full bg-white rounded-lg shadow-md p-4 flex items-start justify-between"
                 >
-                  <div className="mb-4">
+                  <div className="mb-4 flex-grow">
                     <h4 className="text-gray-700 text-lg font-medium mb-2">
                       {request.requested_by_name}
                     </h4>
@@ -170,6 +151,20 @@ function RequestApproval() {
                     <p className="text-gray-500 mb-1">
                       Drop Location: {request.dropLocation}
                     </p>
+                    {request.return && (
+                      <>
+                        <p className="text-gray-500 mb-1">
+                          Return PickUp Location:{" "}
+                          {request.returnPick}
+                        </p>
+                        <p className="text-gray-500 mb-1">
+                          Return Drop Location: {request.returnDrop}
+                        </p>
+                        <p className="text-gray-500 mb-1">
+                          Halt Time: {request.haltTime}
+                        </p>
+                      </>
+                    )}
                     <p className="text-gray-500 mb-1">
                       Vehicle Allocated: {request.vehicle_model}
                     </p>
@@ -190,67 +185,65 @@ function RequestApproval() {
                       >
                         {request.req_status ? "Approved" : "Not Approved"}
                       </p>
-                      {!request.req_status ? (
-                        <div className="flex flex-col space-y-2">
-                          <label
-                            htmlFor="vehicleSelect"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Vehicle
-                          </label>
-                          <select
-                            id="vehicleSelect"
-                            name="vehicleSelect"
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring-blue-500"
-                            onChange={handleVehicleSelect}
-                            disabled={disabled}
-                          >
-                            <option value="">Select Vehicle</option>
-                            {availableVehicles.map((vehicle) => (
-                              <option key={vehicle._id} value={vehicle._id}>
-                                {vehicle.model_name}
-                              </option>
-                            ))}
-                          </select>
-
-                          <label
-                            htmlFor="driverSelect"
-                            className="block text-sm font-medium text-gray-700 mt-2"
-                          >
-                            Driver
-                          </label>
-                          <select
-                            id="driverSelect"
-                            name="driverSelect"
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring-blue-500"
-                            onChange={handleDriverSelect}
-                            disabled={disabled}
-                          >
-                            <option value="">Select Driver</option>
-                            {availableDrivers.map((driver) => (
-                              <option key={driver._id} value={driver._id}>
-                                {driver.name}
-                              </option>
-                            ))}
-                          </select>
-                          <button
-                            className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded mt-2"
-                            onClick={() => handleApprove(request._id)}
-                          >
-                            Approve
-                          </button>
-                          <button
-                            className="bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded"
-                            onClick={handleNotApprove}
-                          >
-                            Not Approve
-                          </button>
-                        </div>
-                      ) : (
-                        ""
-                      )}
                     </div>
                   </div>
+                  {!request.req_status && (
+                    <div className="flex flex-col space-y-2">
+                      <label
+                        htmlFor="vehicleSelect"
+                        className="block text-sm font-medium text-gray-700"
+                      >
+                        Vehicle
+                      </label>
+                      <select
+                        id="vehicleSelect"
+                        name="vehicleSelect"
+                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring-blue-500"
+                        onChange={handleVehicleSelect}
+                        disabled={disabled}
+                      >
+                        <option value="">Select Vehicle</option>
+                        {availableVehicles.map((vehicle) => (
+                          <option key={vehicle._id} value={vehicle._id}>
+                            {vehicle.model_name}
+                          </option>
+                        ))}
+                      </select>
+
+                      <label
+                        htmlFor="driverSelect"
+                        className="block text-sm font-medium text-gray-700 mt-2"
+                      >
+                        Driver
+                      </label>
+                      <select
+                        id="driverSelect"
+                        name="driverSelect"
+                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring-blue-500"
+                        onChange={handleDriverSelect}
+                        disabled={disabled}
+                      >
+                        <option value="">Select Driver</option>
+                        {availableDrivers.map((driver) => (
+                          <option key={driver._id} value={driver._id}>
+                            {driver.name}
+                          </option>
+                        ))}
+                      </select>
+                      <button
+                        className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded mt-2"
+                        onClick={() => handleApprove(request._id)}
+                      >
+                        Approve
+                      </button>
+                      <button
+                        className="bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded"
+                        onClick={handleNotApprove}
+                      >
+                        Not Approve
+                      </button>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>

@@ -14,14 +14,14 @@ const RequestForm = () => {
   const [formData, setFormData] = useState({
     name: uD.name,
     psno: uD.psno,
-    phno: "",
+    phno: uD.phno,
     dropLocation: "",
     pickLocation: "",
-    destinationType: "instation",
-    fromDate: "",
-    toDate: "",
-    pickupTime: "",
-    dropTime: "",
+    // destinationType: "instation",
+    // fromDate: "",
+    // toDate: "",
+    // pickupTime: "",
+    // dropTime: "",
     halt: "",
     returnFlag: false,
     returnPick: "",
@@ -41,14 +41,6 @@ const RequestForm = () => {
         [name]: value,
       });
     } else {
-      setFormData({
-        ...formData,
-        returnPick: value,
-      });
-      setFormData({
-        ...formData,
-        returnDrop: value,
-      });
       // For other details, update normally
       setFormData({
         ...formData,
@@ -165,6 +157,7 @@ const RequestForm = () => {
                   type="tel"
                   id="phno"
                   name="phno"
+                  disabled="disabled"
                   value={formData.phno}
                   onChange={handleChange}
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring-blue-500"
@@ -344,13 +337,13 @@ const RequestForm = () => {
                     htmlFor="additionalField1"
                     className="block text-sm font-medium text-gray-700 font-Roboto"
                   >
-                    PickUp Location
+                   Return PickUp Location
                   </label>
                   <input
                     type="text"
                     id="pickup"
-                    name="pickup"
-                    value={formData.dropLocation}
+                    name="returnPick"
+                    value={formData.returnPick}
                     onChange={handleChange}
                     className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring-blue-500"
                   />
@@ -360,13 +353,13 @@ const RequestForm = () => {
                     htmlFor="additionalField1"
                     className="block text-sm font-medium text-gray-700 font-Roboto"
                   >
-                    Drop Location
+                    Return Drop Location
                   </label>
                   <input
                     type="text"
                     id="drop"
-                    name="drop"
-                    value={formData.pickLocation}
+                    name="returnDrop"
+                    value={formData.returnDorp}
                     onChange={handleChange}
                     className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring-blue-500"
                   />

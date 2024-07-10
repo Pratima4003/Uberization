@@ -7,7 +7,6 @@ import Navbar1 from "../../../components/header/navbar1";
 
 function VehicleDetails() {
   const [vehicles, setVehicles] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
@@ -22,19 +21,13 @@ function VehicleDetails() {
         setVehicles(data);
       } catch (err) {
         setError(err.message);
-      } finally {
-        setLoading(false);
-      }
+      } 
     };
 
     fetchVehicles();
   }, []);
 
-  const handleApprove = (vehicleId) => {
-    navigate(`/request/${vehicleId}`);
-  };
-
-  if (loading) return <div>Loading...</div>;
+  // if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
   return (
@@ -46,9 +39,9 @@ function VehicleDetails() {
       <div className="flex h-screen bg-gray-200">
         <AdminSidebar />
         {/* Main Content */}
-        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
+        <main className="flex-1 overflow-x-hidden overflow-y-hidden bg-gray-400">
           <div className="container mx-auto px-6 py-8">
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-1 gap-2 mt-8">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 gap-2 mt-8">
               {vehicles.map((vehicle) => (
                 <div
                   key={vehicle._id}
@@ -56,7 +49,6 @@ function VehicleDetails() {
                 >
                   <div className="relative w-39 h-32 overflow-hidden rounded-lg mr-4">
                     <img
-                      // src={vehicle.imageUrl}
                       src="https://img.freepik.com/free-vector/modern-urban-adventure-suv-vehicle-illustration_1344-200.jpg?uid=R96791781&ga=GA1.1.2082991712.1718443786&semt=sph"
                       className="object-cover w-full h-full"
                       alt="Vehicle"
@@ -83,14 +75,6 @@ function VehicleDetails() {
                     >
                       {vehicle.available ? "Available" : "Not Available"}
                     </p>
-                    {/* <div className="flex space-x-4">
-                      <button
-                        className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded"
-                        onClick={() => handleApprove(vehicle._id)}
-                      >
-                        Approve
-                      </button>
-                    </div> */}
                   </div>
                 </div>
               ))}

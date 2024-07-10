@@ -11,9 +11,9 @@ const userSchema = new Schema({
   psno: {
     type: String,
     required: true,
-    // unique: true,
+    unique: true,
   },
-  phno:{
+  phno: {
     type: String,
     required: true,
   },
@@ -23,6 +23,11 @@ const userSchema = new Schema({
   },
   password: {
     type: String,
+    required: true,
+  },
+  isadmin: {
+    type: Boolean,
+    default: false,
     required: true,
   },
 });

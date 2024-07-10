@@ -6,7 +6,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
 const phoneInputPopupClasses =
-  "fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-8 border border-gray-300 shadow-md z-50 max-w-sm w-full text-center";
+  "fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-100 p-8 border border-gray-300 shadow-md z-50 max-w-sm w-full text-center";
 
 let DefaultIcon = L.icon({
   iconUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png",
@@ -74,12 +74,12 @@ const TrackVehicle = () => {
     <>
       {showPhoneNumberInput ? (
         <div className={phoneInputPopupClasses}>
-          <h2 className="text-2xl font-bold mb-4">Enter Phone Number</h2>
+          <h2 className="text-2xl font-bold mb-4">Phone Number</h2>
           <input
             type="text"
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
-            placeholder="Enter your phone number"
+            placeholder="Phone Number"
             className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm mb-4"
           />
           <button

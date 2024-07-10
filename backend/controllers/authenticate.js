@@ -13,21 +13,22 @@ const authenticate = async (req, res, next) => {
     return res.status(401).json({ message: "Access denied" });
   }
 
-  if (credentials.username == "admin" && credentials.password == "123") {
-    req.isAdmin = true;
-    return next();
-  }
-
   await User.findOne({
     name: credentials.username,
     password: credentials.password,
   })
     .then((user) => {
       if (user) {
-        req.isAdmin = false;
-        req.isNormal = true;
-        req.customData = { user };
-        next();
+        if (user.isadmin === true) {
+          req.isAdmin = true;
+          req.customData = { user };
+          return next();
+        } else {
+          req.isAdmin = false;
+          req.isNormal = true;
+          req.customData = { user };
+          next();
+        }
       } else {
         res.status(401).json({ message: "Access denied" });
       }

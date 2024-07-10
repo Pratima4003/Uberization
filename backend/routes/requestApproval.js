@@ -19,6 +19,10 @@ requestApprovalRouter.post("/newReqAppr", (req, res) => {
     requested_by_phn: data.phno,
     pickupLocation: data.pickLocation,
     dropLocation: data.dropLocation,
+    returnDrop: data.returnDrop,
+    returnPick: data.returnPick,
+    return: data.returnFlag,
+    // haltTime: data.haltTime,
   })
     .then((RequestApproval) => res.json(RequestApproval))
     .catch((err) => console.log(err));

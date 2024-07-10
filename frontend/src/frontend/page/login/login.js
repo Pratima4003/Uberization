@@ -12,7 +12,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(typeof username, typeof password);
+
     try {
       const response = await fetch("http://localhost:3000/login", {
         method: "POST",
@@ -24,11 +24,12 @@ const Login = () => {
       const result = await response.json();
 
       console.log(response.status);
+      console.log(result.user);
+      setUserData(result.user.user);
       if (response.status === 200) {
         navigate("/adminDashboard");
       } else if (response.status === 201) {
-        setUserData(result.user.user);
-        navigate("/dashboard", { state: { username } });
+        navigate("/dashboard");
       } else {
         alert("Invalid User");
       }
@@ -46,7 +47,7 @@ const Login = () => {
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <div className="bg-gray-300 py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <form className="space-y-8" onSubmit={handleSubmit}>
             <div>
               <div className="mt-3">

@@ -38,6 +38,21 @@ const requestapprovalSchema = new Schema({
     default: " ",
     required: true,
   },
+  returnPick: {
+    type: String,
+    default: " ",
+    // required: true,
+  },
+  returnDrop: {
+    type: String,
+    default: " ",
+    // required: true,
+  },
+  return: {
+    type: Boolean,
+    default: false,
+    required: true,
+  },
   driver_number: {
     type: String,
     default: " ",

@@ -1,9 +1,35 @@
 // Dashboard.js
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navbar1 from "../../../components/header/navbar1";
 import AdminSidebar from "../../../components/sidebar/AdminSidebar";
+import useData from "../../../components/useData/useData";
 
 const AdminDashboard = () => {
+  const { getUserData } = useData(); // Destructure getUserData from the custom hook
+  const userData = getUserData();
+  const [requests, setRequests] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchReqApps = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/findDetails");
+        const result = await response.json();
+        console.log(result);
+        if (!response.ok) {
+          throw new Error("Failed to fetch requests");
+        }
+        setRequests(result);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchReqApps();
+  }, []);
+
   return (
     <>
       <div className="sticky-navbar">
@@ -36,12 +62,12 @@ const AdminDashboard = () => {
                   </svg>
                 </button>
                 <h1 className="text-3xl text-left font-medium font-BonaNovaSC">
-                  Welcome Admin!
+                  Welcome {userData ? userData.name : "Loading..."}!
                 </h1>
               </div>
               <div className="flex space-x-4">
                 <h1 className="text-3xl font-medium text-right font-BonaNovaSC">
-                  PS No.: 123456
+                  PS No.: {userData ? userData.psno : "Loading..."}
                 </h1>
               </div>
             </div>
@@ -52,49 +78,66 @@ const AdminDashboard = () => {
             <div className="container mx-auto px-6 py-8">
               {/* Example Card Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 mt-8">
-                <a href="/vehicledetails">
-                  <div className="w-full bg-white rounded-lg hover:bg-gray-100 shadow-md p-4">
-                    <h4 className="text-gray-700 text-lg font-medium mb-4">
-                      Vehicle Details
-                    </h4>
-                    <p className="text-gray-500">
-                      Displays the information like car model, number plate,
-                      photo, availability(color coded) etc. of all cars.
+                <div className="w-full bg-white rounded-lg shadow-md p-4">
+                  <h4 className="text-gray-700 text-2xl font-Ubuntu font-medium mb-4">
+                    Vehicle Details
+                  </h4>
+                  <div className="flex justify-between">
+                    <p className="text-gray-500 text-lg font-Ubuntu">
+                      Total Vehicles: {requests.vehicles}
                     </p>
+                    <a
+                      href="/vehicledetails"
+                      className="text-gray-600 hover:text-gray-900 text-lg font-Ubuntu font-bold text-right"
+                    >
+                      Click to view details
+                    </a>
                   </div>
-                </a>
-                <a href="/driverdetails">
-                  <div className="w-full bg-white rounded-lg hover:bg-gray-100 shadow-md p-4">
-                    <h4 className="text-gray-700 text-lg font-medium mb-4">
-                      Drivers Details
-                    </h4>
-                    <p className="text-gray-500">
-                      Displays the information details like license, name,
-                      address, phone number etc. of all the drivers.
+                </div>
+                <div className="w-full bg-white rounded-lg shadow-md p-4">
+                  <h4 className="text-gray-700 text-2xl font-Ubuntu font-medium mb-4">
+                    Drivers Details
+                  </h4>
+                  <div className="flex justify-between">
+                    <p className="text-gray-500 text-lg font-Ubuntu">
+                      Total Drivers: {requests.drivers}
                     </p>
+                    <a
+                      href="/driverdetails"
+                      className="text-gray-600 hover:text-gray-900 text-lg font-Ubuntu font-bold text-right"
+                    >
+                      Click to view details
+                    </a>
                   </div>
-                </a>
-                <a href="/requestapproval">
-                  <div className="w-full bg-white rounded-lg hover:bg-gray-100 shadow-md p-4">
-                    <h4 className="text-gray-700 text-lg font-medium mb-4">
-                      Requests To Approve
-                    </h4>
-                    <p className="text-gray-500">
-                      Displays the details of requests that are pending to
-                      approve by the admin.
+                </div>
+                <div className="w-full bg-white rounded-lg shadow-md p-4">
+                  <h4 className="text-gray-700 text-2xl font-Ubuntu font-medium mb-4">
+                    Requests To Approve
+                  </h4>
+                  <div className="flex justify-between">
+                    <p className="text-gray-500 text-lg font-Ubuntu">
+                      Total Requests for Approval:{" "}
+                      {requests.requestsForApproval}
                     </p>
+                    <a
+                      href="/requestapproval"
+                      className="text-gray-600 hover:text-gray-900 text-lg font-Ubuntu font-bold text-right"
+                    >
+                      Click to view details
+                    </a>
                   </div>
-                </a>
-                <a href="/track">
-                  <div className="w-full bg-white rounded-lg hover:bg-gray-100 shadow-md p-4">
-                    <h4 className="text-gray-700 text-lg font-medium mb-4">
-                      Track Vehicles
-                    </h4>
-                    <p className="text-gray-500">
-                      Open map and track location of all the vehicles.
-                    </p>
-                  </div>
-                </a>
+                </div>
+                <div className="w-full bg-white rounded-lg shadow-md p-4">
+                  <h4 className="text-gray-700 text-2xl font-medium mb-4 font-Ubuntu">
+                    Track Vehicles
+                  </h4>
+                  <p className="text-gray-500 text-lg font-Ubuntu">
+                    <a href="/track">
+                      <u className="hover:text-gray-900">Click Here</u>
+                    </a>{" "}
+                    to open map and track location of all the vehicles.
+                  </p>
+                </div>
               </div>
             </div>
           </main>

@@ -4,14 +4,8 @@ import Navbar1 from "../../../components/header/navbar1";
 import useData from "../../../components/useData/useData";
 
 const Dashboard = () => {
-  // const [userData, setUserData] = useState(null);
   const { getUserData } = useData(); // Destructure getUserData from the custom hook
   const userData = getUserData();
-
-  // useEffect(() => {
-  //   const uD = getUserData(); // Get the user data from sessionStorage
-  //   setUserData(uD);
-  // }, [getUserData]);
 
   return (
     <>

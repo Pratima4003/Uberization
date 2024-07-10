@@ -32,6 +32,7 @@ const requestApprovalRouter = require("./routes/requestApproval");
 const getReqApprovalRouter = require("./routes/getReqApproval");
 const getUserRequestsRouter = require("./routes/findRequests");
 const updateRequestRouter = require("./routes/updateRequest");
+const findDetailsRouter = require("./routes/findDetails");
 
 // routes
 app.use(loginRouter);
@@ -46,6 +47,7 @@ app.use(requestApprovalRouter);
 app.use(getReqApprovalRouter);
 app.use(getUserRequestsRouter);
 app.use(updateRequestRouter);
+app.use(findDetailsRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
