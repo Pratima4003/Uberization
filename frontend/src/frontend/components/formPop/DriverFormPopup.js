@@ -1,12 +1,11 @@
-// VehicleFormPopup.js
+// DriverFormPopup.js
 import React, { useState, useEffect } from "react";
 
-function VehicleFormPopup({ show, onClose, onSubmit }) {
+function DriverFormPopup({ show, onClose, onSubmit }) {
   const initialFormState = {
-    model_name: "",
-    type_of_vehicle: "",
-    number: "",
-    number_of_seats_except_driver: "",
+    name: "",
+    phno: "",
+    license: "",
     available: true,
   };
 
@@ -38,52 +37,40 @@ function VehicleFormPopup({ show, onClose, onSubmit }) {
   return (
     <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
-        <h2 className="text-xl font-medium mb-4">Add Vehicle</h2>
+        <h2 className="text-xl font-medium mb-4">Add Driver</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">
-              Model Name
+              Name
             </label>
             <input
               type="text"
-              name="model_name"
-              value={formData.model_name}
+              name="name"
+              value={formData.name}
               onChange={handleChange}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">
-              Type of Vehicle
+              Phone Number
             </label>
             <input
               type="text"
-              name="type_of_vehicle"
-              value={formData.type_of_vehicle}
+              name="phno"
+              value={formData.phno}
               onChange={handleChange}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">
-              Number
+              License
             </label>
             <input
               type="text"
-              name="number"
-              value={formData.number}
-              onChange={handleChange}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Number of Seats Except Driver
-            </label>
-            <input
-              type="text"
-              name="number_of_seats_except_driver"
-              value={formData.number_of_seats_except_driver}
+              name="license"
+              value={formData.license}
               onChange={handleChange}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
@@ -113,7 +100,7 @@ function VehicleFormPopup({ show, onClose, onSubmit }) {
               type="submit"
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
-              Add Vehicle
+              Add Driver
             </button>
           </div>
         </form>
@@ -122,4 +109,4 @@ function VehicleFormPopup({ show, onClose, onSubmit }) {
   );
 }
 
-export default VehicleFormPopup;
+export default DriverFormPopup;

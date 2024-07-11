@@ -5,14 +5,14 @@ const { body, validationResult } = require("express-validator");
 const Driver = require("../models/Driver");
 const driverRouter = express.Router();
 
-driverRouter.get(
+driverRouter.post(
   "/newdriver",
-  [
-    body("name", "Enter a valid name").isLength({ min: 3 }),
-    body("phno", "Enter a valid phone number").isLength({min:10, max:10}),
-    body("license", "Enter valid license number").isLength({ min: 4 }),
-    body("available", "Enter whether available or not").isBoolean(),
-  ],
+  // [
+  //   body("name", "Enter a valid name").isLength({ min: 3 }),
+  //   body("phno", "Enter a valid phone number").isLength({min:10, max:10}),
+  //   body("license", "Enter valid license number").isLength({ min: 4 }),
+  //   body("available", "Enter whether available or not").isBoolean(),
+  // ],
   (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

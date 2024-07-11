@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import AdminSidebar from "../../../components/sidebar/AdminSidebar";
-import { useNavigate } from "react-router-dom";
 import Navbar1 from "../../../components/header/navbar1";
-import FormPopup from "../../../components/formPop/formPop";
+import VehicleFormPopup from "../../../components/formPop/formPop";
 
 function VehicleDetails() {
   const [vehicles, setVehicles] = useState([]);
   const [error, setError] = useState(null);
   const [showForm, setShowForm] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchVehicles = async () => {
@@ -49,14 +47,12 @@ function VehicleDetails() {
     }
   };
 
-  if (error) return <div>Error: {error}</div>;
-
   return (
     <>
       <div className="sticky-navbar">
         <Navbar1 isLoggedIn={true} />
       </div>
-      <div className="flex h-screen bg-gray-200">
+      <div className="flex h-auto bg-gray-200">
         <AdminSidebar />
         <div className="flex-1 flex flex-col overflow-hidden">
           <header className="bg-gray w-full shadow flex">
@@ -93,7 +89,7 @@ function VehicleDetails() {
             </div>
           </header>
 
-          <main className="flex-1 overflow-x-hidden overflow-y-hidden bg-gray-400">
+          <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-400">
             <div className="container mx-auto px-6 py-8">
               <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 gap-2 mt-8">
                 {vehicles.map((vehicle) => (
@@ -137,7 +133,11 @@ function VehicleDetails() {
           </main>
         </div>
       </div>
-      <FormPopup show={showForm} onClose={() => setShowForm(false)} onSubmit={handleAddVehicle} />
+      <VehicleFormPopup
+        show={showForm}
+        onClose={() => setShowForm(false)}
+        onSubmit={handleAddVehicle}
+      />
     </>
   );
 }
