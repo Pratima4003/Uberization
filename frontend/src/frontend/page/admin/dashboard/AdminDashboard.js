@@ -82,6 +82,9 @@ const AdminDashboard = () => {
                   <h4 className="text-gray-700 text-2xl font-Ubuntu font-medium mb-4">
                     Vehicle Details
                   </h4>
+                  <p className="text-gray-500 text-lg font-Ubuntu">
+                    Total Available vehicles: {requests.availableVehicles}
+                  </p>
                   <div className="flex justify-between">
                     <p className="text-gray-500 text-lg font-Ubuntu">
                       Total Vehicles: {requests.vehicles}
@@ -98,6 +101,9 @@ const AdminDashboard = () => {
                   <h4 className="text-gray-700 text-2xl font-Ubuntu font-medium mb-4">
                     Drivers Details
                   </h4>
+                  <p className="text-gray-500 text-lg font-Ubuntu">
+                    Total Available drivers: {requests.availableDrivers}
+                  </p>
                   <div className="flex justify-between">
                     <p className="text-gray-500 text-lg font-Ubuntu">
                       Total Drivers: {requests.drivers}
@@ -114,10 +120,12 @@ const AdminDashboard = () => {
                   <h4 className="text-gray-700 text-2xl font-Ubuntu font-medium mb-4">
                     Requests To Approve
                   </h4>
+                  <p className="text-gray-500 text-lg font-Ubuntu">
+                    Total requests for approval: {requests.requestsNotApproved}
+                  </p>
                   <div className="flex justify-between">
                     <p className="text-gray-500 text-lg font-Ubuntu">
-                      Total Requests for Approval:{" "}
-                      {requests.requestsForApproval}
+                      Total Requests: {requests.requestsForApproval}
                     </p>
                     <a
                       href="/requestapproval"

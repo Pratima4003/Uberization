@@ -127,6 +127,33 @@ function RequestApproval() {
       </div>
       <div className="flex h-screen bg-gray-200">
         <AdminSidebar />
+        <div className="flex-1 flex flex-col overflow-hidden">
+          <header className="bg-gray w-full shadow flex">
+            <div className="flex w-full justify-between px-6 py-4">
+              <div className="flex space-x-4">
+                <button className="text-gray-600 focus:outline-none md:hidden">
+                  <svg
+                    className="h-6 w-6"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M4 6H20M4 12H20M4 18H20"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+                <h1 className="text-3xl text-left font-medium font-BonaNovaSC">
+                  Requests for Approval
+                </h1>
+              </div>
+            </div>
+          </header>
+
         <main className="flex-1 overflow-x-hidden bg-gray-400">
           <div className="container mx-auto px-6 py-1">
             <div className="grid grid-cols-2 gap-6 mt-8">
@@ -249,6 +276,7 @@ function RequestApproval() {
             </div>
           </div>
         </main>
+        </div>
       </div>
     </>
   );
