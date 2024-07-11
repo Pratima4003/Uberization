@@ -53,6 +53,10 @@ const formSchema = new Schema({
     default: "",
     // required: true,
   },
+  // completed: {
+  //   type: Boolean,
+  //   default: false,
+  // }
 });
 
 const Form = mongoose.model("Form", formSchema);

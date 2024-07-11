@@ -125,9 +125,9 @@ function RequestApproval() {
       <div className="sticky-navbar">
         <Navbar1 isLoggedIn={true} />
       </div>
-      <div className="flex h-screen bg-gray-200">
+      <div className="flex h-auto bg-gray-200">
         <AdminSidebar />
-        <div className="flex-1 flex flex-col overflow-hidden">
+        <div className="flex-1 flex flex-col overflow-auto">
           <header className="bg-gray w-full shadow flex">
             <div className="flex w-full justify-between px-6 py-4">
               <div className="flex space-x-4">
@@ -204,7 +204,7 @@ function RequestApproval() {
                     <p className="text-gray-500 mb-1">
                       Driver Contact: {request.driver_number}
                     </p>
-                    <div>
+                    <div className="flex justify-between">
                       <p
                         className={`font-bold mb-2 ${
                           request.req_status ? "text-green-500" : "text-red-500"
@@ -212,6 +212,16 @@ function RequestApproval() {
                       >
                         {request.req_status ? "Approved" : "Not Approved"}
                       </p>
+                      {request.req_status? (
+                        <p
+                        className={`font-bold mb-2 ${
+                          request.completed ? "text-green-500" : "text-red-500"
+                        }`}
+                      >
+                        {request.completed ? "Completed" : "Not Completed"}
+                      </p>
+                      ) :
+                      ( <p> </p>)}
                     </div>
                   </div>
                   {!request.req_status && (

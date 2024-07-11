@@ -64,6 +64,10 @@ const requestapprovalSchema = new Schema({
     default: false,
     required: true,
   },
+  completed: {
+    type: Boolean,
+    default: false,
+  }
 });
 
 const RequestApproval = mongoose.model(
