@@ -23,7 +23,6 @@ app.get(port, (req, res) => {
 const loginRouter = require("./routes/login");
 const newUserRouter = require("./routes/newUser");
 const formRouter = require("./routes/newForm");
-// const findUserRouter = require("./routes/findUser");
 const driverRouter = require("./routes/newDriver");
 const newVehicleRouter = require("./routes/newVehicle");
 const findVehicleRouter = require("./routes/findVehicle");
@@ -39,7 +38,6 @@ const updateCompletedRequestRouter = require("./routes/updateCompletedRequest");
 app.use(loginRouter);
 app.use(newUserRouter);
 app.use(formRouter);
-// app.use(findUserRouter);
 app.use(driverRouter);
 app.use(newVehicleRouter);
 app.use(findVehicleRouter);
