@@ -1,2 +1,1 @@
-temp
-admin css, admin database with some changes in the frontend, access admin information by storing, for that make a normal user and declare them as admin, make admin flag for that in the databae of user that will be true if that person is admin and false other wise.
+done everything
