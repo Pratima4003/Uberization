@@ -5,18 +5,18 @@ const { body, validationResult } = require("express-validator");
 const Vehicle = require("../models/Vehicle");
 const newVehicleRouter = express.Router();
 
-newVehicleRouter.get(
+newVehicleRouter.post(
   "/newvehicle",
-  [
-    body("model_name", "Enter a valid model name").isLength({ min: 2 }),
-    body("type_of_vehicle", "Enter a valid type").isLength({ min: 2 }),
-    body("number", "Enter valid number").isLength({ min: 4 }),
-    body(
-      "number_of_seats_except_driver",
-      "Enter exact number of seats available except the driver"
-    ).isNumeric(),
-    body("available", "Enter whether the vehicle is available").isBoolean(),
-  ],
+  // [
+  //   body("model_name", "Enter a valid model name").isLength({ min: 2 }),
+  //   body("type_of_vehicle", "Enter a valid type").isLength({ min: 2 }),
+  //   body("number", "Enter valid number").isLength({ min: 4 }),
+  //   body(
+  //     "number_of_seats_except_driver",
+  //     "Enter exact number of seats available except the driver"
+  //   ).isNumeric(),
+  //   body("available", "Enter whether the vehicle is available").isBoolean(),
+  // ],
   (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
